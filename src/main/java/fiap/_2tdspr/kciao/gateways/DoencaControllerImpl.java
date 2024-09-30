@@ -1,12 +1,23 @@
 package fiap._2tdspr.kciao.gateways;
 
+import fiap._2tdspr.kciao.domains.Doenca;
+import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPatchNameDto;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPostDto;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPutDto;
 import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
+import fiap._2tdspr.kciao.usecases.impl.SalvarDoenca;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
+@RestController
+@RequiredArgsConstructor
 public class DoencaControllerImpl implements DoencaController{
+
+    private final SalvarDoenca salvarDoenca;
     @Override
     public ResponseEntity<DoencaResponseDto> getDoenca(String id) {
         return null;
@@ -19,7 +30,18 @@ public class DoencaControllerImpl implements DoencaController{
 
     @Override
     public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestPostDto doenca) {
-        return null;
+
+        Doenca doencaASerCriada = Doenca.builder()
+            .nm_doenca(doenca.getNm_doenca())
+            .build();
+
+        Doenca doencaSalva = salvarDoenca.execute(doencaASerCriada);
+
+        DoencaResponseDto doencaCriada = DoencaResponseDto.builder()
+            .nm_doenca(doencaSalva.getNm_doenca())
+            .build();
+
+        return ResponseEntity.of(Optional.of(doencaCriada));
     }
 
     @Override
