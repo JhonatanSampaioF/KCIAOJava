@@ -1,5 +1,6 @@
 package fiap._2tdspr.kciao.gateways;
 
+import fiap._2tdspr.kciao.domains.Doenca;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPatchNameDto;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPostDto;
 import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPutDto;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/doenca")
@@ -18,7 +21,7 @@ public interface DoencaController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<DoencaResponseDto> getAllDoenca();
+    ResponseEntity<List<DoencaResponseDto>> getAllDoenca();
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
