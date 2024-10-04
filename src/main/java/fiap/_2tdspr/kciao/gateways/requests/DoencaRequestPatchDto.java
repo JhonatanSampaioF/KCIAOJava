@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class DoencaRequestPatchNameDto {
+public class DoencaRequestPatchDto {
     @NotEmpty
     private String nm_doenca;
 }
