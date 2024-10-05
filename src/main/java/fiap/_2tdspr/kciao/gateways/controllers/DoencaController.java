@@ -26,9 +26,13 @@ public interface DoencaController {
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<DoencaResponseDto> criarDoenca(@RequestBody @Valid DoencaRequestPostDto doenca);
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<Optional<Optional<DoencaResponseDto>>> atualizarDoencaCompleta(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestPatchDto doencaRequestPutDto);
+
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<Optional<DoencaResponseDto>>> atualizarDoenca(@RequestBody @Valid @PathVariable String id, DoencaRequestPatchDto doencaRequestPatchDto);
+    ResponseEntity<Optional<DoencaResponseDto>> atualizarDoencaParcial(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestPatchDto doencaRequestPatchDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

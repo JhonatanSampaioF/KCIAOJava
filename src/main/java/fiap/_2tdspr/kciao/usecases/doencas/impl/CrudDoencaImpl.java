@@ -58,26 +58,48 @@ public class CrudDoencaImpl implements CrudDoenca {
     }
 
     @Override
-    public Optional<Optional<DoencaResponseDto>> update(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
+    public Optional<DoencaResponseDto> update(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
 
         Doenca doencaASerAtualizada = Doenca.builder()
             .nm_doenca(doencaRequestPatchDto.getNm_doenca())
             .build();
 
         int doencaAtualizada = doencaRepository.updateById_doenca(
-            id,
-            doencaASerAtualizada.getNm_doenca()
+            doencaASerAtualizada.getNm_doenca(),
+            id
         );
 
         if(doencaAtualizada != 0){
             Optional<DoencaResponseDto> doencaAtualizadaResponse = getOne(id);
-
-
-            return Optional.ofNullable(doencaAtualizadaResponse);
+            if(doencaAtualizadaResponse.isPresent()) {
+                DoencaResponseDto doencaResponseDto = DoencaResponseDto.builder()
+                    .nm_doenca(doencaAtualizadaResponse.get().getNm_doenca())
+                    .build();
+                return Optional.ofNullable(doencaResponseDto);
+            }
+            return Optional.empty();
         } else {
             return Optional.empty();
         }
     }
+//
+//    @Override
+//    public Optional<DoencaResponseDto> update(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
+//        String novoNome = doencaRequestPatchDto.getNm_doenca();
+//
+//        int doencaAtualizada = doencaRepository.updateById_doenca(novoNome, id);
+//
+//        if(doencaAtualizada != 0){
+//            Optional<DoencaResponseDto> doencaAtualizadaResponse = getOne(id);
+//            if(doencaAtualizadaResponse.isPresent()) {
+//                DoencaResponseDto doencaResponseDto = DoencaResponseDto.builder()
+//                    .nm_doenca(doencaAtualizadaResponse.get().getNm_doenca())
+//                    .build();
+//                return Optional.of(doencaResponseDto);
+//            }
+//        }
+//        return Optional.empty();
+//    }
 
     @Override
     public void delete(String id) {

@@ -41,9 +41,14 @@ public class DoencaControllerImpl implements DoencaController{
     }
 
     @Override
-    public ResponseEntity<Optional<Optional<DoencaResponseDto>>> atualizarDoenca(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
+    public ResponseEntity<Optional<Optional<DoencaResponseDto>>> atualizarDoencaCompleta(String id, DoencaRequestPatchDto doencaRequestPutDto) {
+        return null;
+    }
 
-        Optional<Optional<DoencaResponseDto>> doencaResponseDto = crudDoenca.update(id,doencaRequestPatchDto);
+    @Override
+    public ResponseEntity<Optional<DoencaResponseDto>> atualizarDoencaParcial(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
+
+        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.update(id,doencaRequestPatchDto);
 
         return ResponseEntity.of(Optional.of(doencaResponseDto));
     }

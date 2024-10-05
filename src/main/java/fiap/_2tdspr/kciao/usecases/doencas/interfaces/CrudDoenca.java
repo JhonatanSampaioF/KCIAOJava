@@ -13,7 +13,7 @@ public interface CrudDoenca {
     DoencaResponseDto save(DoencaRequestPostDto doencaRequestPostDto);
     Optional<DoencaResponseDto> getOne(String id);
     List<DoencaResponseDto> getAll();
-    Optional<Optional<DoencaResponseDto>> update(String id, DoencaRequestPatchDto doencaRequestPatchDto);
+    Optional<DoencaResponseDto> update(String id, DoencaRequestPatchDto doencaRequestPatchDto);
     void delete(String id);
 
 }
