@@ -14,6 +14,7 @@ public class Doenca {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id_doenca;
+    @Column(unique = true)
     private String nm_doenca;
     @ManyToMany
     private List<Cliente> cliente;
