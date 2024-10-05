@@ -82,24 +82,6 @@ public class CrudDoencaImpl implements CrudDoenca {
             return Optional.empty();
         }
     }
-//
-//    @Override
-//    public Optional<DoencaResponseDto> update(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
-//        String novoNome = doencaRequestPatchDto.getNm_doenca();
-//
-//        int doencaAtualizada = doencaRepository.updateById_doenca(novoNome, id);
-//
-//        if(doencaAtualizada != 0){
-//            Optional<DoencaResponseDto> doencaAtualizadaResponse = getOne(id);
-//            if(doencaAtualizadaResponse.isPresent()) {
-//                DoencaResponseDto doencaResponseDto = DoencaResponseDto.builder()
-//                    .nm_doenca(doencaAtualizadaResponse.get().getNm_doenca())
-//                    .build();
-//                return Optional.of(doencaResponseDto);
-//            }
-//        }
-//        return Optional.empty();
-//    }
 
     @Override
     public void delete(String id) {
