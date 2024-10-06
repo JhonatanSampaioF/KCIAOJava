@@ -5,6 +5,10 @@ Gustavo Vieira Bargas - Pitch da proposta
 Jhonatan Sampaio Ferreira - Desenvolvimento da aplicação
 </br>
 Vivian Sy Ting Wu - Desenvolvimento da documentação
+</br>
+![Cronograma de Atividades](https://github.com/user-attachments/assets/53763f62-1dc4-4351-bad9-55e38b28ef7d)
+
+
 
 ## Instrução de como rodar a aplicação
 ### Criação
