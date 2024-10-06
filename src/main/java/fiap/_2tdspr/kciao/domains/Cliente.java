@@ -16,5 +16,5 @@ public class Cliente {
     private String id_cliente;
     private String nm_cliente;
     @ManyToMany
-    private List<Doenca> doencas;
+    private List<Doenca> fk_doencas;
 }

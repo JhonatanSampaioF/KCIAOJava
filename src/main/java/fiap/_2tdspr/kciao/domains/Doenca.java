@@ -17,5 +17,5 @@ public class Doenca {
     @Column(unique = true)
     private String nm_doenca;
     @ManyToMany
-    private List<Cliente> cliente;
+    private List<Cliente> fk_cliente;
 }
