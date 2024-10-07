@@ -47,7 +47,7 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 ### Diagrama Entidade Relacionamento
 
 ## Pitch apresentação
-### youtube
+### [Video Pitch](https://www.youtube.com/watch?v=jUbJweG8XMY)
 
 ## Lista de Endpoints
 ### Doença
