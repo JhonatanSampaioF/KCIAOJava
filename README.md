@@ -42,6 +42,7 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 ## Diagramas
 ### Diagrama de Classe dos domínios
 </br>
+
 ![Diagrama de Classe](https://github.com/user-attachments/assets/bd0abe16-ffc2-488a-b192-95b25f34e77d)
 
 ### Diagrama Entidade Relacionamento
