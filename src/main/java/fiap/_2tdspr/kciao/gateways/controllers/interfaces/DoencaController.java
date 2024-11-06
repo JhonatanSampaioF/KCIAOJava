@@ -1,7 +1,7 @@
-package fiap._2tdspr.kciao.gateways.controllers;
+package fiap._2tdspr.kciao.gateways.controllers.interfaces;
 
-import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPatchDto;
-import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPostDto;
+import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
+import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,11 +24,11 @@ public interface DoencaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<DoencaResponseDto> criarDoenca(@RequestBody @Valid DoencaRequestPostDto doenca);
+    ResponseEntity<DoencaResponseDto> criarDoenca(@RequestBody @Valid DoencaRequestDto doenca);
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestPatchDto doencaRequestPatchDto);
+    ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestDto doencaRequestDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

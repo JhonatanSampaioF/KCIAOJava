@@ -1,7 +1,7 @@
-package fiap._2tdspr.kciao.gateways.controllers;
+package fiap._2tdspr.kciao.gateways.controllers.impl;
 
-import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPatchDto;
-import fiap._2tdspr.kciao.gateways.requests.DoencaRequestPostDto;
+import fiap._2tdspr.kciao.gateways.controllers.interfaces.DoencaController;
+import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
 import fiap._2tdspr.kciao.usecases.doencas.impl.CrudDoencaImpl;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class DoencaControllerImpl implements DoencaController{
+public class DoencaControllerImpl implements DoencaController {
 
     private final CrudDoencaImpl crudDoenca;
     @Override
@@ -33,7 +33,7 @@ public class DoencaControllerImpl implements DoencaController{
     }
 
     @Override
-    public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestPostDto doencaRequestDto) {
+    public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestDto doencaRequestDto) {
 
         DoencaResponseDto doencaSalva = crudDoenca.save(doencaRequestDto);
 
@@ -41,9 +41,9 @@ public class DoencaControllerImpl implements DoencaController{
     }
 
     @Override
-    public ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(String id, DoencaRequestPatchDto doencaRequestPatchDto) {
+    public ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(String id, DoencaRequestDto doencaRequestDto) {
 
-        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.update(id,doencaRequestPatchDto);
+        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.update(id, doencaRequestDto);
 
         return ResponseEntity.of(Optional.of(doencaResponseDto));
     }
