@@ -1,4 +1,4 @@
-package fiap._2tdspr.kciao.gateways.responses;
+package fiap._2tdspr.kciao.gateways.responses.doenca;
 
 import lombok.Builder;
 import lombok.Data;

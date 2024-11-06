@@ -3,7 +3,7 @@ package fiap._2tdspr.kciao.usecases.doencas.impl;
 import fiap._2tdspr.kciao.domains.Doenca;
 import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
-import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import fiap._2tdspr.kciao.usecases.doencas.interfaces.CrudDoenca;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,7 @@
 package fiap._2tdspr.kciao.usecases.doencas.interfaces;
 
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
-import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
-import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

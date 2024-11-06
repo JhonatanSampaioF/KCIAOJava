@@ -1,8 +1,7 @@
 package fiap._2tdspr.kciao.gateways.controllers.interfaces;
 
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
-import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
-import fiap._2tdspr.kciao.gateways.responses.DoencaResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
