@@ -1,5 +1,6 @@
 package fiap._2tdspr.kciao.gateways.requests.evento;
 
+import fiap._2tdspr.kciao.domains.Cliente;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -14,5 +15,5 @@ public class EventoRequestPostDto {
     @NotEmpty
     private Date dt_evento;
     @NotEmpty
-    private String fk_cliente;
+    private Cliente fk_cliente;
 }

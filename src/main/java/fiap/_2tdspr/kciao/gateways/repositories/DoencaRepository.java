@@ -19,10 +19,6 @@ public interface DoencaRepository extends JpaRepository<Doenca,String> {
     Optional<Doenca> findById (@NotEmpty @Valid String id);
     List<Doenca> findAll();
     void deleteById(@NotEmpty @Valid String id);
-//    @Modifying
-//    @Transactional
-//    @Query("update Doenca set nm_doenca = ':name' where id_doenca = ':id'")
-//    int updateById_doenca(@Param("name") @Valid String name, @Param("id") @Valid String id);
     @Modifying
     @Transactional
     @Query("UPDATE Doenca d SET d.nm_doenca = :name WHERE d.id_doenca = :id")

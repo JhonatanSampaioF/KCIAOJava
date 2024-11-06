@@ -4,14 +4,17 @@ import fiap._2tdspr.kciao.domains.Cliente;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ClienteRepository {
+@Service
+public interface ClienteRepository extends JpaRepository<Cliente, String> {
 
     Optional<Cliente> findById (@NotEmpty @Valid String id);
     List<Cliente> findAll();
