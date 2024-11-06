@@ -1,4 +1,4 @@
-package fiap._2tdspr.kciao.usecases.doencas.interfaces;
+package fiap._2tdspr.kciao.usecases.interfaces;
 
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;

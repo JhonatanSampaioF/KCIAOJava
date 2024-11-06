@@ -3,7 +3,7 @@ package fiap._2tdspr.kciao.gateways.controllers.impl;
 import fiap._2tdspr.kciao.gateways.controllers.interfaces.DoencaController;
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
-import fiap._2tdspr.kciao.usecases.doencas.impl.CrudDoencaImpl;
+import fiap._2tdspr.kciao.usecases.impl.CrudDoencaImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
