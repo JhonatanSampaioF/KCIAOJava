@@ -16,6 +16,7 @@ import java.util.Optional;
 public class DoencaControllerImpl implements DoencaController {
 
     private final CrudDoencaImpl crudDoenca;
+
     @Override
     public ResponseEntity<Optional<DoencaResponseDto>> getDoenca(String id) {
 
@@ -33,9 +34,9 @@ public class DoencaControllerImpl implements DoencaController {
     }
 
     @Override
-    public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestDto doencaRequestDto) {
+    public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestDto doenca) {
 
-        DoencaResponseDto doencaSalva = crudDoenca.save(doencaRequestDto);
+        DoencaResponseDto doencaSalva = crudDoenca.save(doenca);
 
         return ResponseEntity.of(Optional.of(doencaSalva));
     }
