@@ -1,6 +1,7 @@
 package fiap._2tdspr.kciao.usecases.impl;
 
 import fiap._2tdspr.kciao.domains.Cliente;
+import fiap._2tdspr.kciao.gateways.controllers.interfaces.ClienteController;
 import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +31,13 @@ public class CrudClienteImpl implements CrudCliente {
         ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
                 .nm_cliente(clienteSalvo.getNm_cliente())
                 .build();
+
+        clienteResponse.add(
+                linkTo(
+                        methodOn(ClienteController.class)
+                                .getCliente(clienteSalvo.getId_cliente().toString())
+                ).withSelfRel()
+        );
 
         return clienteResponse;
     }

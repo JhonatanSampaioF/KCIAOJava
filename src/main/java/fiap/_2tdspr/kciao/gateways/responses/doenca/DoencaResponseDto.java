@@ -1,10 +1,13 @@
 package fiap._2tdspr.kciao.gateways.responses.doenca;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @Builder
-public class DoencaResponseDto {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class DoencaResponseDto extends RepresentationModel<DoencaResponseDto> {
     private String nm_doenca;
 }

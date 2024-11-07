@@ -1,15 +1,21 @@
 package fiap._2tdspr.kciao.usecases.impl;
 
 import fiap._2tdspr.kciao.domains.Doenca;
+import fiap._2tdspr.kciao.gateways.controllers.impl.DoencaControllerImpl;
 import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
 import fiap._2tdspr.kciao.gateways.requests.doenca.DoencaRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudDoenca;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @RequiredArgsConstructor
@@ -24,10 +30,16 @@ public class CrudDoencaImpl implements CrudDoenca {
 
         Doenca doencaSalva = doencaRepository.save(doencaASerCriada);
 
-
         DoencaResponseDto doencaResponse = DoencaResponseDto.builder()
             .nm_doenca(doencaSalva.getNm_doenca())
             .build();
+
+        doencaResponse.add(
+                linkTo(
+                        methodOn(DoencaControllerImpl.class)
+                                .getDoenca(doencaSalva.getId_doenca().toString())
+                ).withSelfRel()
+        );
 
         return doencaResponse;
     }

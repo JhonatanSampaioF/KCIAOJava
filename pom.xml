@@ -63,6 +63,13 @@
 			<artifactId>ojdbc11</artifactId>
 			<version>23.5.0.24.07</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+			<version>3.3.5</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,10 +1,13 @@
 package fiap._2tdspr.kciao.gateways.responses.cliente;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @Builder
-public class ClienteResponseDto {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class ClienteResponseDto extends RepresentationModel<ClienteResponseDto> {
     private String nm_cliente;
 }

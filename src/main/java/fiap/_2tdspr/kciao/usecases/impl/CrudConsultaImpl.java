@@ -1,6 +1,7 @@
 package fiap._2tdspr.kciao.usecases.impl;
 
 import fiap._2tdspr.kciao.domains.Consulta;
+import fiap._2tdspr.kciao.gateways.controllers.interfaces.ConsultaController;
 import fiap._2tdspr.kciao.gateways.repositories.ConsultaRepository;
 import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchDto;
 import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPostDto;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +38,13 @@ public class CrudConsultaImpl implements CrudConsulta {
                 .horario_consulta(consultaSalva.getHorario_consulta())
                 .fk_evento(consultaSalva.getFk_evento())
                 .build();
+
+        consultaResponse.add(
+                linkTo(
+                        methodOn(ConsultaController.class)
+                                .getConsulta(consultaSalva.getId_consulta().toString())
+                ).withSelfRel()
+        );
 
         return consultaResponse;
     }

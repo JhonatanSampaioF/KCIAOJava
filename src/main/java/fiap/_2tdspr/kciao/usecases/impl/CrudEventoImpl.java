@@ -1,6 +1,7 @@
 package fiap._2tdspr.kciao.usecases.impl;
 
 import fiap._2tdspr.kciao.domains.Evento;
+import fiap._2tdspr.kciao.gateways.controllers.interfaces.EventoController;
 import fiap._2tdspr.kciao.gateways.repositories.EventoRepository;
 import fiap._2tdspr.kciao.gateways.requests.evento.EventoRequestPatchDto;
 import fiap._2tdspr.kciao.gateways.requests.evento.EventoRequestPostDto;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +38,13 @@ public class CrudEventoImpl implements CrudEvento {
                 .dt_evento(eventoSalvo.getDt_evento())
                 .fk_cliente(eventoSalvo.getFk_cliente())
                 .build();
+
+        eventoResponse.add(
+                linkTo(
+                      methodOn(EventoController.class)
+                              .getEvento(eventoSalvo.getId_evento().toString())
+                ).withSelfRel()
+        );
 
         return eventoResponse;
     }
