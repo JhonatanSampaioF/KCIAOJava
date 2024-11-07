@@ -2,9 +2,7 @@ package fiap._2tdspr.kciao.usecases.impl;
 
 import fiap._2tdspr.kciao.domains.Consulta;
 import fiap._2tdspr.kciao.gateways.repositories.ConsultaRepository;
-import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchHorarioDto;
-import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchLocalDto;
-import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchProfissionalDto;
+import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchDto;
 import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPostDto;
 import fiap._2tdspr.kciao.gateways.responses.consulta.ConsultaResponseDto;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudConsulta;
@@ -70,73 +68,46 @@ public class CrudConsultaImpl implements CrudConsulta {
     }
 
     @Override
-    public Optional<ConsultaResponseDto> updateHorario(String id, ConsultaRequestPatchHorarioDto consultaRequestPatchHorarioDto) {
+    public Optional<ConsultaResponseDto> update(String id, ConsultaRequestPatchDto consultaRequestPatchDto) {
+
+        int consultaHorarioAtualizado = 0;
+        int consultaLocalAtualizado = 0;
+        int consultaProfissionalAtualizado = 0;
 
         Consulta consultaASerAtualizada = Consulta.builder()
-                .horario_consulta(consultaRequestPatchHorarioDto.getHorario_consulta())
+                .horario_consulta(consultaRequestPatchDto.getHorario_consulta())
+                .local_consulta(consultaRequestPatchDto.getLocal_consulta())
+                .profissional(consultaRequestPatchDto.getProfissional())
                 .build();
 
-        int consultaAtualizada = consultaRepository.updateHorarioById_consulta(
-                consultaASerAtualizada.getHorario_consulta(),
-                id
-        );
+        if(consultaASerAtualizada.getHorario_consulta() != null){
+            consultaHorarioAtualizado = consultaRepository.updateHorarioById_consulta(
+                    consultaASerAtualizada.getHorario_consulta(),
+                    id
+            );
+        }
 
-        if(consultaAtualizada != 0) {
+        if(consultaASerAtualizada.getLocal_consulta() != null) {
+            consultaLocalAtualizado = consultaRepository.updateLocalById_consulta(
+                    consultaASerAtualizada.getLocal_consulta(),
+                    id
+            );
+        }
+
+        if(consultaASerAtualizada.getProfissional() != null) {
+            consultaProfissionalAtualizado = consultaRepository.updateProfissionalById_consulta(
+                    consultaASerAtualizada.getProfissional(),
+                    id
+            );
+        }
+
+
+        if(consultaHorarioAtualizado != 0 || consultaLocalAtualizado != 0 || consultaProfissionalAtualizado != 0) {
             Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
             if(consultaAtualizadaResponse.isPresent()) {
                 ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
                         .horario_consulta(consultaAtualizadaResponse.get().getHorario_consulta())
-                        .build();
-                return Optional.ofNullable(consultaResponse);
-            }
-            return Optional.empty();
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public Optional<ConsultaResponseDto> updateLocal(String id, ConsultaRequestPatchLocalDto consultaRequestPatchLocalDto) {
-
-        Consulta consultaASerAtualizada = Consulta.builder()
-                .local_consulta(consultaRequestPatchLocalDto.getLocal_consulta())
-                .build();
-
-        int consultaAtualizada = consultaRepository.updateLocalById_consulta(
-                consultaASerAtualizada.getLocal_consulta(),
-                id
-        );
-
-        if(consultaAtualizada != 0) {
-            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
-            if(consultaAtualizadaResponse.isPresent()) {
-                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
                         .local_consulta(consultaAtualizadaResponse.get().getLocal_consulta())
-                        .build();
-                return Optional.ofNullable(consultaResponse);
-            }
-            return Optional.empty();
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public Optional<ConsultaResponseDto> updateProfissional(String id, ConsultaRequestPatchProfissionalDto consultaRequestPatchProfissionalDto) {
-
-        Consulta consultaASerAtualizada = Consulta.builder()
-                .profissional(consultaRequestPatchProfissionalDto.getProfissional())
-                .build();
-
-        int consultaAtualizada = consultaRepository.updateProfissionalById_consulta(
-                consultaASerAtualizada.getProfissional(),
-                id
-        );
-
-        if(consultaAtualizada != 0) {
-            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
-            if(consultaAtualizadaResponse.isPresent()) {
-                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
                         .profissional(consultaAtualizadaResponse.get().getProfissional())
                         .build();
                 return Optional.ofNullable(consultaResponse);
@@ -146,6 +117,84 @@ public class CrudConsultaImpl implements CrudConsulta {
             return Optional.empty();
         }
     }
+
+//    @Override
+//    public Optional<ConsultaResponseDto> updateHorario(String id, ConsultaRequestPatchHorarioDto consultaRequestPatchHorarioDto) {
+//
+//        Consulta consultaASerAtualizada = Consulta.builder()
+//                .horario_consulta(consultaRequestPatchHorarioDto.getHorario_consulta())
+//                .build();
+//
+//        int consultaAtualizada = consultaRepository.updateHorarioById_consulta(
+//                consultaASerAtualizada.getHorario_consulta(),
+//                id
+//        );
+//
+//        if(consultaAtualizada != 0) {
+//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            if(consultaAtualizadaResponse.isPresent()) {
+//                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+//                        .horario_consulta(consultaAtualizadaResponse.get().getHorario_consulta())
+//                        .build();
+//                return Optional.ofNullable(consultaResponse);
+//            }
+//            return Optional.empty();
+//        } else {
+//            return Optional.empty();
+//        }
+//    }
+//
+//    @Override
+//    public Optional<ConsultaResponseDto> updateLocal(String id, ConsultaRequestPatchLocalDto consultaRequestPatchLocalDto) {
+//
+//        Consulta consultaASerAtualizada = Consulta.builder()
+//                .local_consulta(consultaRequestPatchLocalDto.getLocal_consulta())
+//                .build();
+//
+//        int consultaAtualizada = consultaRepository.updateLocalById_consulta(
+//                consultaASerAtualizada.getLocal_consulta(),
+//                id
+//        );
+//
+//        if(consultaAtualizada != 0) {
+//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            if(consultaAtualizadaResponse.isPresent()) {
+//                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+//                        .local_consulta(consultaAtualizadaResponse.get().getLocal_consulta())
+//                        .build();
+//                return Optional.ofNullable(consultaResponse);
+//            }
+//            return Optional.empty();
+//        } else {
+//            return Optional.empty();
+//        }
+//    }
+//
+//    @Override
+//    public Optional<ConsultaResponseDto> updateProfissional(String id, ConsultaRequestPatchProfissionalDto consultaRequestPatchProfissionalDto) {
+//
+//        Consulta consultaASerAtualizada = Consulta.builder()
+//                .profissional(consultaRequestPatchProfissionalDto.getProfissional())
+//                .build();
+//
+//        int consultaAtualizada = consultaRepository.updateProfissionalById_consulta(
+//                consultaASerAtualizada.getProfissional(),
+//                id
+//        );
+//
+//        if(consultaAtualizada != 0) {
+//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            if(consultaAtualizadaResponse.isPresent()) {
+//                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+//                        .profissional(consultaAtualizadaResponse.get().getProfissional())
+//                        .build();
+//                return Optional.ofNullable(consultaResponse);
+//            }
+//            return Optional.empty();
+//        } else {
+//            return Optional.empty();
+//        }
+//    }
 
     @Override
     public void delete(String id) {

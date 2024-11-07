@@ -1,12 +1,10 @@
 package fiap._2tdspr.kciao.gateways.requests.consulta;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
-public class ConsultaRequestPatchLocalDto {
-    @NotEmpty
+public class ConsultaRequestPatchDto {
     private String profissional;
-    @NotEmpty
     private String local_consulta;
+    private Integer horario_consulta;
 }

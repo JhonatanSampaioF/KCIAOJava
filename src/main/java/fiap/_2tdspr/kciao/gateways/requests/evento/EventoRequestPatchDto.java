@@ -1,12 +1,12 @@
 package fiap._2tdspr.kciao.gateways.requests.evento;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.sql.Date;
 
 @Data
-public class EventoRequestPatchDataDto {
-    @NotEmpty
+public class EventoRequestPatchDto {
+    private String tipo_evento;
+    private String desc_evento;
     private Date dt_evento;
 }
