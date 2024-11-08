@@ -29,6 +29,7 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente clienteSalvo = clienteRepository.save(clienteASerCriado);
 
         ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
+                .id_cliente(clienteSalvo.getId_cliente())
                 .nm_cliente(clienteSalvo.getNm_cliente())
                 .build();
 
@@ -49,6 +50,7 @@ public class CrudClienteImpl implements CrudCliente {
 
         if (cliente.isPresent()) {
             ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
+                    .id_cliente(cliente.get().getId_cliente())
                     .nm_cliente(cliente.get().getNm_cliente())
                     .build();
             return Optional.of(clienteResponse);
@@ -62,6 +64,7 @@ public class CrudClienteImpl implements CrudCliente {
         List<Cliente> listCliente = clienteRepository.findAll();
         List<ClienteResponseDto> listClienteResponse = listCliente.stream()
                 .map(cliente -> ClienteResponseDto.builder()
+                        .id_cliente(cliente.getId_cliente())
                         .nm_cliente(cliente.getNm_cliente())
                         .build()).toList();
         return listClienteResponse;
@@ -83,6 +86,7 @@ public class CrudClienteImpl implements CrudCliente {
             Optional<ClienteResponseDto> clienteAtualizadoResponse = getOne(id);
             if(clienteAtualizadoResponse.isPresent()){
                 ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
+                        .id_cliente(clienteAtualizadoResponse.get().getId_cliente())
                         .nm_cliente(clienteAtualizadoResponse.get().getNm_cliente())
                         .build();
                 return Optional.ofNullable(clienteResponse);

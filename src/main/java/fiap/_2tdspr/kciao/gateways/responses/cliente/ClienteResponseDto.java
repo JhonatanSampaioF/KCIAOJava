@@ -9,5 +9,6 @@ import org.springframework.hateoas.RepresentationModel;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ClienteResponseDto extends RepresentationModel<ClienteResponseDto> {
+    private String id_cliente;
     private String nm_cliente;
 }

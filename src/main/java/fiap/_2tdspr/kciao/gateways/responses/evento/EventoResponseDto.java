@@ -12,6 +12,7 @@ import java.sql.Date;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class EventoResponseDto extends RepresentationModel<EventoResponseDto> {
+    private String id_evento;
     private String tipo_evento;
     private String desc_evento;
     private Date dt_evento;

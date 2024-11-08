@@ -33,6 +33,7 @@ public class CrudEventoImpl implements CrudEvento {
         Evento eventoSalvo = eventoRepository.save(eventoASerCriado);
 
         EventoResponseDto eventoResponse = EventoResponseDto.builder()
+                .id_evento(eventoSalvo.getId_evento())
                 .tipo_evento(eventoSalvo.getTipo_evento())
                 .desc_evento(eventoSalvo.getDesc_evento())
                 .dt_evento(eventoSalvo.getDt_evento())
@@ -55,6 +56,7 @@ public class CrudEventoImpl implements CrudEvento {
 
         if (evento.isPresent()) {
             EventoResponseDto eventoResponse = EventoResponseDto.builder()
+                    .id_evento(evento.get().getId_evento())
                     .tipo_evento(evento.get().getTipo_evento())
                     .desc_evento(evento.get().getDesc_evento())
                     .dt_evento(evento.get().getDt_evento())
@@ -71,6 +73,7 @@ public class CrudEventoImpl implements CrudEvento {
         List<Evento> listEvento = eventoRepository.findAll();
         List<EventoResponseDto> listEventoResponse = listEvento.stream()
                 .map(evento -> EventoResponseDto.builder()
+                        .id_evento(evento.getId_evento())
                         .tipo_evento(evento.getTipo_evento())
                         .desc_evento(evento.getDesc_evento())
                         .dt_evento(evento.getDt_evento())
@@ -117,6 +120,7 @@ public class CrudEventoImpl implements CrudEvento {
             Optional<EventoResponseDto> eventoAtualizadoResponse = getOne(id);
             if (eventoAtualizadoResponse.isPresent()) {
                 EventoResponseDto eventoResponse = EventoResponseDto.builder()
+                        .id_evento(eventoAtualizadoResponse.get().getId_evento())
                         .tipo_evento(eventoAtualizadoResponse.get().getTipo_evento())
                         .desc_evento(eventoAtualizadoResponse.get().getDesc_evento())
                         .dt_evento(eventoAtualizadoResponse.get().getDt_evento())

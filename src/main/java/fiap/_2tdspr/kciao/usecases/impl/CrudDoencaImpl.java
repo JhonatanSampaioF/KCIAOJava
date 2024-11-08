@@ -31,6 +31,7 @@ public class CrudDoencaImpl implements CrudDoenca {
         Doenca doencaSalva = doencaRepository.save(doencaASerCriada);
 
         DoencaResponseDto doencaResponse = DoencaResponseDto.builder()
+            .id_doenca(doencaSalva.getId_doenca())
             .nm_doenca(doencaSalva.getNm_doenca())
             .build();
 
@@ -50,6 +51,7 @@ public class CrudDoencaImpl implements CrudDoenca {
 
         if(doenca.isPresent()) {
             DoencaResponseDto doencaResponse = DoencaResponseDto.builder()
+                .id_doenca(doenca.get().getId_doenca())
                 .nm_doenca(doenca.get().getNm_doenca())
                 .build();
             return Optional.of(doencaResponse);
@@ -63,6 +65,7 @@ public class CrudDoencaImpl implements CrudDoenca {
         List<Doenca> listDoenca = doencaRepository.findAll();
         List<DoencaResponseDto> listDoencaResponse = listDoenca.stream()
             .map(doenca -> DoencaResponseDto.builder()
+                .id_doenca(doenca.getId_doenca())
                 .nm_doenca(doenca.getNm_doenca())
                 .build()).toList();
         return listDoencaResponse;
@@ -84,6 +87,7 @@ public class CrudDoencaImpl implements CrudDoenca {
             Optional<DoencaResponseDto> doencaAtualizadaResponse = getOne(id);
             if(doencaAtualizadaResponse.isPresent()) {
                 DoencaResponseDto doencaResponse = DoencaResponseDto.builder()
+                    .id_doenca(doencaAtualizadaResponse.get().getId_doenca())
                     .nm_doenca(doencaAtualizadaResponse.get().getNm_doenca())
                     .build();
                 return Optional.ofNullable(doencaResponse);

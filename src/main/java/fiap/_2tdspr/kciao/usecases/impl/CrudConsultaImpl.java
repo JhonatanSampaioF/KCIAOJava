@@ -33,6 +33,7 @@ public class CrudConsultaImpl implements CrudConsulta {
         Consulta consultaSalva = consultaRepository.save(consultaASerCriada);
 
         ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+                .id_consulta(consultaSalva.getId_consulta())
                 .profissional(consultaSalva.getProfissional())
                 .local_consulta(consultaSalva.getLocal_consulta())
                 .horario_consulta(consultaSalva.getHorario_consulta())
@@ -55,6 +56,7 @@ public class CrudConsultaImpl implements CrudConsulta {
 
         if (consulta.isPresent()) {
             ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+                    .id_consulta(consulta.get().getId_consulta())
                     .profissional(consulta.get().getProfissional())
                     .local_consulta(consulta.get().getLocal_consulta())
                     .horario_consulta(consulta.get().getHorario_consulta())
@@ -71,6 +73,7 @@ public class CrudConsultaImpl implements CrudConsulta {
         List<Consulta> listConsulta = consultaRepository.findAll();
         List<ConsultaResponseDto> listConsultaResponse = listConsulta.stream()
                 .map(consulta -> ConsultaResponseDto.builder()
+                        .id_consulta(consulta.getId_consulta())
                         .profissional(consulta.getProfissional())
                         .local_consulta(consulta.getLocal_consulta())
                         .horario_consulta(consulta.getHorario_consulta())
@@ -117,6 +120,7 @@ public class CrudConsultaImpl implements CrudConsulta {
             Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
             if(consultaAtualizadaResponse.isPresent()) {
                 ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
+                        .id_consulta(consultaAtualizadaResponse.get().getId_consulta())
                         .horario_consulta(consultaAtualizadaResponse.get().getHorario_consulta())
                         .local_consulta(consultaAtualizadaResponse.get().getLocal_consulta())
                         .profissional(consultaAtualizadaResponse.get().getProfissional())
