@@ -94,6 +94,7 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 | :--- | :--- |
 | GET (one) | http://localhost:8080/cliente/:idCliente |
 | GET (all) | http://localhost:8080/cliente |
+| GET (eventos by id) | http://localhost:8080/:idCliente/eventos |
 | POST | http://localhost:8080/cliente |
 | PATCH | http://localhost:8080/cliente/:idCliente |
 | DELETE | http://localhost:8080/cliente/:idCliente |
@@ -136,6 +137,9 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 
 ##### GET (all)
 ![image](https://github.com/user-attachments/assets/27f8c2d2-abd3-4a18-8f61-354517bcffde)
+
+##### GET (eventos by id)
+![image](https://github.com/user-attachments/assets/60185d5f-a962-4144-9031-aa4d673b7166)
 
 
 ##### POST
