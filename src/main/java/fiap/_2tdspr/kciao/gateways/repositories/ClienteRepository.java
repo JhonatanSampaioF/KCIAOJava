@@ -1,6 +1,7 @@
 package fiap._2tdspr.kciao.gateways.repositories;
 
 import fiap._2tdspr.kciao.domains.Cliente;
+import fiap._2tdspr.kciao.domains.Evento;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -23,6 +24,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, String> {
     @Transactional
     @Query("UPDATE Cliente c SET c.nm_cliente = :name WHERE c.id_cliente = :id")
     int updateById_cliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
+    @Transactional
+    @Query("SELECT e FROM Evento e where e.fk_cliente.id_cliente = :id")
+    List<Evento> findAllEventobyId(@Param("id") @Valid String id);
     // Patch Lista Doencas
 //    @Modifying
 //    @Transactional

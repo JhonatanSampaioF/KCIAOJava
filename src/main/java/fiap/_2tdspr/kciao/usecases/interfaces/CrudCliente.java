@@ -2,6 +2,7 @@ package fiap._2tdspr.kciao.usecases.interfaces;
 
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface CrudCliente {
     List<ClienteResponseDto> getAll();
     Optional<ClienteResponseDto> update(String id, ClienteRequestDto clienteRequestDto);
     void delete(String id);
+    List<EventoResponseDto> getAllEventos(String id);
 }

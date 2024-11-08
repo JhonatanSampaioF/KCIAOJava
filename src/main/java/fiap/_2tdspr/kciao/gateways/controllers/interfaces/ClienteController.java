@@ -2,6 +2,7 @@ package fiap._2tdspr.kciao.gateways.controllers.interfaces;
 
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,4 +33,8 @@ public interface ClienteController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     void deletarCliente(@PathVariable @Valid String id);
+
+    @GetMapping("/{id}/eventos")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<List<EventoResponseDto>> getAllEventos(@PathVariable @Valid String id);
 }
