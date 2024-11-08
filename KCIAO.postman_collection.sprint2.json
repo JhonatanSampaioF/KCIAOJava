@@ -134,6 +134,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get all eventos by id cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/:id/eventos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								":id",
+								"eventos"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c67e6898-2153-4bd4-9a2c-d2137dd49b99"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -539,7 +566,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipo_evento\": \"tipo_do_evento_aqui\",\r\n    \"desc_evento\": \"descrição_do_evento_aqui\",\r\n    \"dt_evento\": \"2023-11-07\",\r\n    \"fk_cliente\": {\r\n        \"id_cliente\": \"6e3e334c-7213-413a-b3d4-c0f06213eb70\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"tipo_evento\": \"Evento3\",\r\n    \"desc_evento\": \"descrição_do_evento_aqui\",\r\n    \"dt_evento\": \"2023-11-07\",\r\n    \"fk_cliente\": {\r\n        \"id_cliente\": \"c67e6898-2153-4bd4-9a2c-d2137dd49b99\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
