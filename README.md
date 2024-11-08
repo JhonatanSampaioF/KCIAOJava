@@ -132,54 +132,74 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 #### Cliente
 
 ##### GET (one)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/801423c6-fbf5-407b-8caf-7733c6ee4e97)
+
 ##### GET (all)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/27f8c2d2-abd3-4a18-8f61-354517bcffde)
+
+
 ##### POST
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/863ea3e9-9bfc-4d14-9c80-6dff9f735fd8)
+
 ##### PATCH
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/4be851a5-08d8-4eaa-8da2-50c50892fe2e)
+
 ##### DELETE
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/2896168b-0d96-4873-8136-138cbd198f8c)
+
 
 
 #### Consulta
 
 ##### GET (one)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/7d2583f7-9cac-42e5-849f-876d1a630eb0)
+
 ##### GET (all)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/723eae97-9539-43ab-9e27-12a6274a6a20)
+
 ##### POST
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/789f356c-fbec-4a92-84f9-01a6847f9546)
+
 ##### PATCH
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/d6a9c0ed-67bf-476b-96fa-704563ef6185)
+
 ##### DELETE
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/6b7d3f25-f04b-49f5-9ba2-753c21c72f13)
+
 
 
 #### Doença
 
 ##### GET (one)
-###### [PLACEHOLDER]
+![GETONE](https://github.com/user-attachments/assets/3ebcdb2e-043f-4caa-940b-e406fcc92578)
+
 ##### GET (all)
-###### [PLACEHOLDER]
+![GETALL](https://github.com/user-attachments/assets/7b507c38-a6c1-412d-b900-9669dafe5219)
+
 ##### POST
-###### [PLACEHOLDER]
+![POST](https://github.com/user-attachments/assets/b9d1920c-0570-41a0-a965-9d3951d8cf39)
+
 ##### PATCH
-###### [PLACEHOLDER]
+![PATCH](https://github.com/user-attachments/assets/cf401092-8dc3-419b-99fa-69e0470f6b7b)
+
 ##### DELETE
-###### [PLACEHOLDER]
+![DELETE](https://github.com/user-attachments/assets/5f2fac12-eb73-4555-bfa7-7ba8cae70b5e)
 
 
 #### Evento
 
 ##### GET (one)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/46382786-8ba3-46ff-8b3c-451aa85af76d)
+
 ##### GET (all)
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/c373cf97-bfec-4443-b697-8f0ae3319bb9)
+
 ##### POST
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/30da0e9c-c4ea-4007-984a-44e12a880002)
+
 ##### PATCH
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/53e2ed3e-2c49-4bb5-aff8-4c63e67e7a4c)
+
 ##### DELETE
-###### [PLACEHOLDER]
+![image](https://github.com/user-attachments/assets/dbf1b41a-213d-4a58-82d2-315b9eb42f44)
+
