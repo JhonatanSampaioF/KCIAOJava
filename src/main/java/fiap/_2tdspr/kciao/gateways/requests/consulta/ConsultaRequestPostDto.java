@@ -2,6 +2,7 @@ package fiap._2tdspr.kciao.gateways.requests.consulta;
 
 import fiap._2tdspr.kciao.domains.Evento;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -10,8 +11,8 @@ public class ConsultaRequestPostDto {
     private String profissional;
     @NotEmpty
     private String local_consulta;
-    @NotEmpty
+    @NotNull
     private Integer horario_consulta;
-    @NotEmpty
+    @NotNull
     private Evento fk_evento;
 }
