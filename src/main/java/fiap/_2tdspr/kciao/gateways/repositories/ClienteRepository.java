@@ -1,37 +1,27 @@
 package fiap._2tdspr.kciao.gateways.repositories;
 
 import fiap._2tdspr.kciao.domains.Cliente;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+@Repository
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-@Service
-public interface ClienteRepository extends JpaRepository<Cliente, String> {
-
-    Optional<Cliente> findById (@NotEmpty @Valid String id);
-    List<Cliente> findAll();
-    void deleteById(@NotEmpty @Valid String id);
     @Modifying
     @Transactional
-    @Query("UPDATE Cliente c SET c.nm_cliente = :name WHERE c.id_cliente = :id")
-    int updateById_cliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
-    // Patch Lista Doencas
-//    @Modifying
-//    @Transactional
-//    @Query("INSERT INTO Cliente c (c.nm_cliente) values (:name"))
-//    int addDoencaToCliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
-//
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE Cliente c SET c.nm_cliente = :name WHERE c.id_cliente = :id")
-//    int deleteDoencaFromCliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
+    @Query(value = "CALL insert_cliente(:nome_cliente)", nativeQuery = true)
+    void insertCliente(String nome_cliente);
 
+    @Modifying
+    @Transactional
+    @Query(value = "CALL update_cliente(:id_cliente, :nome_cliente)", nativeQuery = true)
+    void updateCliente(Long id_cliente, String nome_cliente);
+
+    @Modifying
+    @Transactional
+    @Query(value = "CALL delete_cliente(:id_cliente)", nativeQuery = true)
+    void deleteCliente(Long id_cliente);
 }

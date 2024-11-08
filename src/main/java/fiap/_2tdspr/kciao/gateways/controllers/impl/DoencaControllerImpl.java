@@ -18,39 +18,17 @@ public class DoencaControllerImpl implements DoencaController {
     private final CrudDoencaImpl crudDoenca;
 
     @Override
-    public ResponseEntity<Optional<DoencaResponseDto>> getDoenca(String id) {
-
-        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.getOne(id);
-
-        return ResponseEntity.of(Optional.of(doencaResponseDto));
+    public void criarDoenca(DoencaRequestDto doenca) {
+        crudDoenca.save(doenca);
     }
 
     @Override
-    public ResponseEntity<List<DoencaResponseDto>> getAllDoenca() {
-
-        List<DoencaResponseDto> doencaResponseDtoList = crudDoenca.getAll();
-
-        return ResponseEntity.ok(doencaResponseDtoList);
+    public void atualizarDoenca(Long id, DoencaRequestDto doencaRequestDto) {
+        crudDoenca.update(id, doencaRequestDto);
     }
 
     @Override
-    public ResponseEntity<DoencaResponseDto> criarDoenca(DoencaRequestDto doenca) {
-
-        DoencaResponseDto doencaSalva = crudDoenca.save(doenca);
-
-        return ResponseEntity.of(Optional.of(doencaSalva));
-    }
-
-    @Override
-    public ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(String id, DoencaRequestDto doencaRequestDto) {
-
-        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.update(id, doencaRequestDto);
-
-        return ResponseEntity.of(Optional.of(doencaResponseDto));
-    }
-
-    @Override
-    public void deletarDoenca(String id) {
+    public void deletarDoenca(Long id) {
         crudDoenca.delete(id);
     }
 }

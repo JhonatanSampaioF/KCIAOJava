@@ -13,23 +13,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/doenca")
 public interface DoencaController {
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<DoencaResponseDto>> getDoenca(@PathVariable @Valid String id);
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<List<DoencaResponseDto>> getAllDoenca();
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<DoencaResponseDto> criarDoenca(@RequestBody @Valid DoencaRequestDto doenca);
+    void criarDoenca(@RequestBody @Valid DoencaRequestDto doenca);
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestDto doencaRequestDto);
+    void atualizarDoenca(@PathVariable @Valid Long id, @RequestBody @Valid DoencaRequestDto doencaRequestDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    void deletarDoenca(@PathVariable @Valid String id);
+    void deletarDoenca(@PathVariable @Valid Long id);
 }

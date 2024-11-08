@@ -20,81 +20,30 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CrudClienteImpl implements CrudCliente {
     private final ClienteRepository clienteRepository;
     @Override
-    public ClienteResponseDto save(ClienteRequestDto clienteRequestDto) {
+    public void save(ClienteRequestDto clienteRequestDto) {
 
         Cliente clienteASerCriado = Cliente.builder()
                 .nm_cliente(clienteRequestDto.getNm_cliente())
                 .build();
 
-        Cliente clienteSalvo = clienteRepository.save(clienteASerCriado);
-
-        ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
-                .nm_cliente(clienteSalvo.getNm_cliente())
-                .build();
-
-        clienteResponse.add(
-                linkTo(
-                        methodOn(ClienteController.class)
-                                .getCliente(clienteSalvo.getId_cliente().toString())
-                ).withSelfRel()
-        );
-
-        return clienteResponse;
+        clienteRepository.save(clienteASerCriado);
     }
 
     @Override
-    public Optional<ClienteResponseDto> getOne(String id) {
-
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-
-        if (cliente.isPresent()) {
-            ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
-                    .nm_cliente(cliente.get().getNm_cliente())
-                    .build();
-            return Optional.of(clienteResponse);
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    @Override
-    public List<ClienteResponseDto> getAll() {
-        List<Cliente> listCliente = clienteRepository.findAll();
-        List<ClienteResponseDto> listClienteResponse = listCliente.stream()
-                .map(cliente -> ClienteResponseDto.builder()
-                        .nm_cliente(cliente.getNm_cliente())
-                        .build()).toList();
-        return listClienteResponse;
-    }
-
-    @Override
-    public Optional<ClienteResponseDto> update(String id, ClienteRequestDto clienteRequestDto) {
+    public void update(Long id, ClienteRequestDto clienteRequestDto) {
 
         Cliente clienteASerAtualizado = Cliente.builder()
                 .nm_cliente(clienteRequestDto.getNm_cliente())
                 .build();
 
-        int clienteAtualizado = clienteRepository.updateById_cliente(
-                clienteASerAtualizado.getNm_cliente(),
-                id
+        clienteRepository.updateCliente(
+                id,
+                clienteASerAtualizado.getNm_cliente()
         );
-
-        if(clienteAtualizado != 0){
-            Optional<ClienteResponseDto> clienteAtualizadoResponse = getOne(id);
-            if(clienteAtualizadoResponse.isPresent()){
-                ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
-                        .nm_cliente(clienteAtualizadoResponse.get().getNm_cliente())
-                        .build();
-                return Optional.ofNullable(clienteResponse);
-            }
-            return Optional.empty();
-        } else {
-            return Optional.empty();
-        }
     }
 
     @Override
-    public void delete(String id) {
-        clienteRepository.deleteById(id);
+    public void delete(Long id) {
+        clienteRepository.deleteCliente(id);
     }
 }

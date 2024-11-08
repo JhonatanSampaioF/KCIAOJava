@@ -18,39 +18,17 @@ public class ClienteControllerImpl implements ClienteController {
     private final CrudClienteImpl crudCliente;
 
     @Override
-    public ResponseEntity<Optional<ClienteResponseDto>> getCliente(String id) {
-
-        Optional<ClienteResponseDto> clienteResponseDto = crudCliente.getOne(id);
-
-        return ResponseEntity.of(Optional.of(clienteResponseDto));
+    public void criarCliente(ClienteRequestDto cliente) {
+        crudCliente.save(cliente);
     }
 
     @Override
-    public ResponseEntity<List<ClienteResponseDto>> getAllCliente() {
-
-        List<ClienteResponseDto> clienteResponseDtoList = crudCliente.getAll();
-
-        return ResponseEntity.ok(clienteResponseDtoList);
+    public void atualizarCliente(Long id, ClienteRequestDto clienteRequestDto) {
+        crudCliente.update(id, clienteRequestDto);
     }
 
     @Override
-    public ResponseEntity<ClienteResponseDto> criarCliente(ClienteRequestDto cliente) {
-
-        ClienteResponseDto clienteSalvo = crudCliente.save(cliente);
-
-        return ResponseEntity.of(Optional.of(clienteSalvo));
-    }
-
-    @Override
-    public ResponseEntity<Optional<ClienteResponseDto>> atualizarCliente(String id, ClienteRequestDto clienteRequestDto) {
-
-        Optional<ClienteResponseDto> clienteResponseDto = crudCliente.update(id, clienteRequestDto);
-
-        return ResponseEntity.of(Optional.of(clienteResponseDto));
-    }
-
-    @Override
-    public void deletarCliente(String id) {
+    public void deletarCliente(Long id) {
         crudCliente.delete(id);
     }
 }

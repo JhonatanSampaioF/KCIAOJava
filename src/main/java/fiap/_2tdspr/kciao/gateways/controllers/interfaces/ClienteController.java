@@ -13,23 +13,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/cliente")
 public interface ClienteController {
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<ClienteResponseDto>> getCliente(@PathVariable @Valid String id);
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<List<ClienteResponseDto>> getAllCliente();
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<ClienteResponseDto> criarCliente(@RequestBody @Valid ClienteRequestDto cliente);
+    void criarCliente(@RequestBody @Valid ClienteRequestDto cliente);
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<ClienteResponseDto>> atualizarCliente(@PathVariable @Valid String id, @RequestBody @Valid ClienteRequestDto clienteRequestDto);
+    void atualizarCliente(@PathVariable @Valid Long id, @RequestBody @Valid ClienteRequestDto clienteRequestDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    void deletarCliente(@PathVariable @Valid String id);
+    void deletarCliente(@PathVariable @Valid Long id);
 }

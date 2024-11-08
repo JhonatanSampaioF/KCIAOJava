@@ -11,12 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tb_repositorio_doenca")
 public class Doenca {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id_doenca;
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_doenca")
+    private Long id_doenca;
+    @Column(name = "nm_doenca",unique = true)
     private String nm_doenca;
-    @ManyToMany
+    @ManyToMany(mappedBy = "fk_doencas")
     private List<Cliente> fk_cliente;
 }

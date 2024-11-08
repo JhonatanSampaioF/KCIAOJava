@@ -11,11 +11,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tb_cliente")
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id_cliente;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
+    private Long id_cliente;
+    @Column(name = "nm_cliente")
     private String nm_cliente;
     @ManyToMany
+    @JoinTable(
+            name = "tb_cliente_doenca",
+            joinColumns = @JoinColumn(name = "fk_cliente"),
+            inverseJoinColumns = @JoinColumn(name = "fk_doenca")
+    )
     private List<Doenca> fk_doencas;
 }
