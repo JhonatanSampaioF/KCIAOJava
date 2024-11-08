@@ -11,7 +11,8 @@ Vivian Sy Ting Wu - Desenvolvimento da documentação
 ![Cronograma de Atividades Sprint 1](https://github.com/user-attachments/assets/53763f62-1dc4-4351-bad9-55e38b28ef7d)
 </br>
 ### Cronograma de Atividades Sprint 2
-###### [PLACEHOLDER]
+![Cronograma de Atividades Sprint 2](https://github.com/user-attachments/assets/21664f1d-dc8e-4f9d-b843-fa29c3dc5cfa)
+
 
 
 
