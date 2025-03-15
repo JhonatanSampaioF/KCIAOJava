@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public interface CrudCliente {
     ClienteResponseDto save(ClienteRequestDto clienteRequestDto);
-    Optional<ClienteResponseDto> getOne(String id);
+    ClienteResponseDto getOne(String id);
     List<ClienteResponseDto> getAll();
     Optional<ClienteResponseDto> update(String id, ClienteRequestDto clienteRequestDto);
     void delete(String id);

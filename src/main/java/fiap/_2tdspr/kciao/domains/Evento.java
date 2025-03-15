@@ -19,5 +19,6 @@ public class Evento {
     private String desc_evento;
     private Date dt_evento;
     @ManyToOne
+    @JoinColumn(name = "fk_cliente_id", nullable = false)
     private Cliente fk_cliente;
 }

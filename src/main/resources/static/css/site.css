@@ -1,0 +1,116 @@
+/* Estilo Geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Estiliza os links no topo */
+nav a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Estiliza o título principal */
+h1 {
+    color: #212529;
+    margin-bottom: 20px;
+}
+
+/* Links de ações */
+a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 8px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estiliza o botão de criar novo cliente */
+.create-new {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.create-new:hover {
+    background-color: #0056b3;
+}
+
+/* Estiliza a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estiliza os botões de ações */
+.action-links a {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.edit {
+    color: white;
+    background-color: #ffc107;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.edit:hover {
+    background-color: #e0a800;
+}
+
+.details {
+    color: white;
+    background-color: #17a2b8;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.details:hover {
+    background-color: #138496;
+}
+
+.delete {
+    color: white;
+    background-color: #dc3545;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.delete:hover {
+    background-color: #c82333;
+}
+
+/* Rodapé */
+footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+}

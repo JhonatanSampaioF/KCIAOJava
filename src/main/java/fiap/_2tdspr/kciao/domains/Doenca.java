@@ -17,6 +17,11 @@ public class Doenca {
     private String id_doenca;
     @Column(unique = true)
     private String nm_doenca;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cliente_doenca",
+            joinColumns = @JoinColumn(name = "doenca_id"),
+            inverseJoinColumns = @JoinColumn(name = "cliente_id")
+    )
     private List<Cliente> fk_cliente;
 }

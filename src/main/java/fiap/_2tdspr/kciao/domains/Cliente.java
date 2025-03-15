@@ -16,6 +16,10 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id_cliente;
     private String nm_cliente;
-    @ManyToMany
+
+    @OneToMany(mappedBy = "fk_cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Evento> eventos;
+
+    @ManyToMany(mappedBy = "fk_cliente", cascade = CascadeType.ALL)
     private List<Doenca> fk_doencas;
 }

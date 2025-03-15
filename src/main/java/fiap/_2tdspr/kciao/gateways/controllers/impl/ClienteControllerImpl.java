@@ -19,9 +19,9 @@ public class ClienteControllerImpl implements ClienteController {
     private final CrudClienteImpl crudCliente;
 
     @Override
-    public ResponseEntity<Optional<ClienteResponseDto>> getCliente(String id) {
+    public ResponseEntity<ClienteResponseDto> getCliente(String id) {
 
-        Optional<ClienteResponseDto> clienteResponseDto = crudCliente.getOne(id);
+        ClienteResponseDto clienteResponseDto = crudCliente.getOne(id);
 
         return ResponseEntity.of(Optional.of(clienteResponseDto));
     }

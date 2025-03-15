@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface ClienteController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<ClienteResponseDto>> getCliente(@PathVariable @Valid String id);
+    ResponseEntity<ClienteResponseDto> getCliente(@PathVariable @Valid String id);
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

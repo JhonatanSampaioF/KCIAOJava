@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Novo Cliente</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Novo Cliente</h1>
+
+    <form th:action="@{/view/cliente}" th:object="${clienteRequestDto}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" th:field="*{nm_cliente}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('nm_cliente')}"
+                   th:errors="*{nm_cliente}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Doenças</label>
+            <div th:each="doenca : ${doencas}">
+                <input type="checkbox" th:id="'doenca_' + ${doenca.id_doenca}"
+                       th:value="${doenca.id_doenca}"
+                       th:field="*{doencas}" />
+                <label th:for="'doenca_' + ${doenca.id_doenca}" th:text="${doenca.nm_doenca}"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar</button>
+        <a th:href="@{/view/cliente}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

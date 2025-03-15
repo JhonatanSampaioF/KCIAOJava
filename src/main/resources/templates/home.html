@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<head>
+    <title>Home - KCIAO</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h1 class="text-center my-4">Bem-vindo ao KCIAO</h1>
+
+    <section class="container">
+        <h2>Equipe</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Gustavo Vieira Bargas</strong> - Pitch da proposta</li>
+            <li class="list-group-item"><strong>Jhonatan Sampaio Ferreira</strong> - Desenvolvimento da aplicação</li>
+            <li class="list-group-item"><strong>Vivian Sy Ting Wu</strong> - Desenvolvimento da documentação</li>
+        </ul>
+    </section>
+
+    <section class="container mt-4">
+        <h2>Instruções de Uso</h2>
+        <ol class="list-group list-group-numbered">
+            <li class="list-group-item">Crie as doenças</li>
+            <li class="list-group-item">Crie o cliente</li>
+            <li class="list-group-item">
+                Crie um evento ou uma consulta
+                <br><small class="text-muted">Caso crie uma consulta, um evento será criado automaticamente</small>
+            </li>
+        </ol>
+    </section>
+</div>
+</body>
+</html>
