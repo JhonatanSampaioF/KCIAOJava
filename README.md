@@ -220,6 +220,7 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 Certifique-se de que o **Maven** esteja instalado em sua máquina, e que a extensão Azure Tools esteja instalada em seu VS Code.
 
 
+
 ### Passos para o Deploy
 
 #### 1. Clonar o Repositório
@@ -231,15 +232,19 @@ git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.co
 cd KCIAOJava
 ```
 
+
+
 #### 2. Crie um WebApp
 
-Abra a extensão do Azure no VS Code, expanda uma subscrição, clique com o botão direito em 'App Services' e clique em 'Create New Web App... (Advanced':
+Abra a extensão do Azure no VS Code, expanda uma subscrição, clique com o botão direito em 'App Services' e clique em 'Create New Web App... (Advanced)':
 
 ![image](https://github.com/user-attachments/assets/d5827842-d67f-41ef-ae1a-c1d4d63694c8)
 
 
 Siga os passos indicados pelo aplicativo para criar um novo WebApp. Ao final, você deve ver algo assim:
+
 ![image](https://github.com/user-attachments/assets/5228418e-87de-4466-957d-48b3bad8cc70)
+
 
 
 #### 3. Faça um Build do aplicativo
@@ -253,6 +258,7 @@ mvn clean package
 Isso irá gerar o arquivo .WAR que iremos utilizar para dar o deploy.
 
 
+
 #### 4. Faça o deploy do arquivo .WAR na WebApp
 
 Clique com o botão direito sobre o arquivo .WAR gerado dentro da pasta 'target' em seu projeto, e clique em 'Deploy to Web App...'
@@ -260,10 +266,12 @@ Clique com o botão direito sobre o arquivo .WAR gerado dentro da pasta 'target'
 ![image](https://github.com/user-attachments/assets/ef870369-a582-4a5a-bc91-574c164d45b2)
 
 
+
 #### 5. Selecione o WebApp que você acabou de criar no passo 2.
 
 Ao final dos passos e após aguardar o deploy, você deve ver algo assim:
 ![image](https://github.com/user-attachments/assets/319b83aa-c074-4be9-a941-7ddc97c7be76)
+
 
 
 #### 6. Testar
