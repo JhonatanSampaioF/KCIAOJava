@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Eventos</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <h1>Eventos</h1>
+    <a th:href="@{/view/evento/new}" class="btn btn-primary mb-3">Novo Evento</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Tipo Evento</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evento : ${eventos}">
+            <td th:text="${evento.tipo_evento}"></td>
+            <td th:text="${evento.desc_evento}"></td>
+            <td th:text="${evento.dt_evento}"></td>
+            <td>
+                <a th:href="@{/view/evento/update/{id}(id=${evento.id_evento})}" class="btn btn-sm btn-warning">Editar</a>
+                <a th:href="@{/view/evento/delete/{id}(id=${evento.id_evento})}" class="btn btn-sm btn-danger">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

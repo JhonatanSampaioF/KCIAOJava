@@ -9,14 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/evento")
 public interface EventoController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<EventoResponseDto>> getEvento(@PathVariable @Valid String id);
+    ResponseEntity<EventoResponseDto> getEvento(@PathVariable @Valid String id);
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -28,7 +27,7 @@ public interface EventoController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<EventoResponseDto>> atualizarEvento(@PathVariable @Valid String id, @RequestBody @Valid EventoRequestPatchDto eventoRequestPatchDto);
+    ResponseEntity<EventoResponseDto> atualizarEvento(@PathVariable @Valid String id, @RequestBody @Valid EventoRequestPatchDto eventoRequestPatchDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

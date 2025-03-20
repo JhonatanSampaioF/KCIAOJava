@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Novo Evento</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Novo Evento</h1>
+
+    <form th:action="@{/view/evento}" th:object="${eventoRequestDto}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Tipo Evento</label>
+            <input type="text" class="form-control" th:field="*{tipo_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('tipo_evento')}"
+                   th:errors="*{tipo_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descrição Evento</label>
+            <input type="text" class="form-control" th:field="*{desc_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('desc_evento')}"
+                   th:errors="*{desc_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data Evento</label>
+            <input type="date" class="form-control" th:field="*{dt_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('dt_evento')}"
+                   th:errors="*{dt_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cliente</label>
+            <select class="form-control" th:field="*{fk_cliente}">
+                <option value="" selected>Selecione um cliente</option>
+                <option th:each="cliente : ${clientes}" th:value="${cliente.id_cliente}" th:text="${cliente.nm_cliente}"></option>
+            </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('fk_cliente')}" th:errors="*{fk_cliente}"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar</button>
+        <a th:href="@{/view/evento}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

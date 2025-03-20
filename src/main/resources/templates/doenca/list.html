@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Doenças</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <h1>Doenças</h1>
+    <a th:href="@{/view/doenca/new}" class="btn btn-primary mb-3">Nova Doença</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="doenca : ${doencas}">
+            <td th:text="${doenca.nm_doenca}"></td>
+            <td>
+                <a th:href="@{/view/doenca/update/{id}(id=${doenca.id_doenca})}" class="btn btn-sm btn-warning">Editar</a>
+                <a th:href="@{/view/doenca/delete/{id}(id=${doenca.id_doenca})}" class="btn btn-sm btn-danger">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

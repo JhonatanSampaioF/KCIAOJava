@@ -13,7 +13,7 @@ public interface CrudCliente {
     ClienteResponseDto save(ClienteRequestDto clienteRequestDto);
     ClienteResponseDto getOne(String id);
     List<ClienteResponseDto> getAll();
-    Optional<ClienteResponseDto> update(String id, ClienteRequestDto clienteRequestDto);
+    ClienteResponseDto update(String id, ClienteRequestDto clienteRequestDto);
     void delete(String id);
     List<EventoResponseDto> getAllEventos(String id);
 }

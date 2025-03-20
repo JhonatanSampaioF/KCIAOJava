@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Editar Consulta</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Editar Consulta</h1>
+
+    <form th:action="@{/view/consulta/{id}(id=${consultaEditDto.id_consulta})}" th:object="${consultaEditDto}" method="post">
+        <input type="hidden" th:field="*{id_consulta}"/>
+        <div class="mb-3">
+            <label class="form-label">Profissional</label>
+            <input type="text" class="form-control" th:field="*{profissional}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('profissional')}"
+                   th:errors="*{profissional}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Local Consulta</label>
+            <input type="text" class="form-control" th:field="*{local_consulta}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('local_consulta')}"
+                   th:errors="*{local_consulta}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Horário Consulta</label>
+            <input type="text" class="form-control" th:field="*{horario_consulta}"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)" placeholder="HHMM" />
+            <small class="text-danger" th:if="${#fields.hasErrors('horario_consulta')}" th:errors="*{horario_consulta}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tipo Evento</label>
+            <p class="form-control-plaintext" th:text="'Consulta'"></p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descrição Evento</label>
+            <input type="text" class="form-control" th:field="*{fk_evento.desc_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('fk_evento.desc_evento')}"
+                   th:errors="*{fk_evento.desc_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data Evento</label>
+            <input type="date" class="form-control" th:field="*{fk_evento.dt_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('fk_evento.dt_evento')}"
+                   th:errors="*{fk_evento.dt_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cliente</label>
+            <p class="form-control-plaintext" th:field="*{fk_evento.fk_cliente.nm_cliente}"></p>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <a th:href="@{/view/consulta}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

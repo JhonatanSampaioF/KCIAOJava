@@ -26,7 +26,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @GetMapping
     @Override
-    public ModelAndView getAllClient() {
+    public ModelAndView getAllCliente() {
         ModelAndView modelAndView = new ModelAndView("cliente/list");
         modelAndView.addObject("clientes", crudCliente.getAll());
         return modelAndView;
@@ -34,7 +34,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @GetMapping("/new")
     @Override
-    public ModelAndView formNewClient() {
+    public ModelAndView formNewCliente() {
         ModelAndView modelAndView = new ModelAndView("cliente/create");
         modelAndView.addObject("clienteRequestDto", new ClienteRequestDto());
         modelAndView.addObject("doencas", crudDoencaImpl.getAll());
@@ -43,7 +43,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @GetMapping("/update/{id}")
     @Override
-    public ModelAndView formUpdateClient(@PathVariable String id) {
+    public ModelAndView formUpdateCliente(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("cliente/edit");
         ClienteResponseDto cliente = crudCliente.getOne(id);
         if (cliente.getDoencas() == null) {
@@ -64,7 +64,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @PostMapping
     @Override
-    public ModelAndView saveClient(ClienteRequestDto clienteRequestDto, BindingResult result) {
+    public ModelAndView saveCliente(ClienteRequestDto clienteRequestDto, BindingResult result) {
         if(result.hasErrors()) {
             return new ModelAndView("cliente/create")
                     .addObject("clienteRequestDto", clienteRequestDto);
@@ -76,7 +76,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @PostMapping("/{id}")
     @Override
-    public ModelAndView updateClient(@PathVariable String id, ClienteRequestDto clienteRequestDto, BindingResult result) {
+    public ModelAndView updateCliente(@PathVariable String id, ClienteRequestDto clienteRequestDto, BindingResult result) {
         if(result.hasErrors()) {
             return new ModelAndView("cliente/edit")
                     .addObject("clienteEditDto", clienteRequestDto);
@@ -88,7 +88,7 @@ public class MvcClienteControllerImpl implements MvcClienteController {
 
     @PostMapping("/delete/{id}")
     @Override
-    public ModelAndView deleteClient(@PathVariable String id) {
+    public ModelAndView deleteCliente(@PathVariable String id) {
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("ID do cliente não pode ser nulo ou vazio.");
         }

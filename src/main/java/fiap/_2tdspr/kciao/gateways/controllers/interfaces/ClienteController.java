@@ -28,7 +28,7 @@ public interface ClienteController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<ClienteResponseDto>> atualizarCliente(@PathVariable @Valid String id, @RequestBody @Valid ClienteRequestDto clienteRequestDto);
+    ResponseEntity<ClienteResponseDto> atualizarCliente(@PathVariable @Valid String id, @RequestBody @Valid ClienteRequestDto clienteRequestDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

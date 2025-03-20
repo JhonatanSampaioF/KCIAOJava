@@ -6,6 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
+@ToString
 @Data
 @Builder
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class Doenca {
     private String id_doenca;
     @Column(unique = true)
     private String nm_doenca;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "cliente_doenca",
             joinColumns = @JoinColumn(name = "doenca_id"),

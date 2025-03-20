@@ -1,18 +1,23 @@
 package fiap._2tdspr.kciao.usecases.impl;
 
+import fiap._2tdspr.kciao.domains.Cliente;
 import fiap._2tdspr.kciao.domains.Consulta;
+import fiap._2tdspr.kciao.domains.Evento;
 import fiap._2tdspr.kciao.gateways.controllers.interfaces.ConsultaController;
+import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import fiap._2tdspr.kciao.gateways.repositories.ConsultaRepository;
+import fiap._2tdspr.kciao.gateways.repositories.EventoRepository;
 import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPatchDto;
 import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaRequestPostDto;
+import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaWithEventoRequestPatchDto;
+import fiap._2tdspr.kciao.gateways.requests.consulta.ConsultaWithEventoRequestPostDto;
 import fiap._2tdspr.kciao.gateways.responses.consulta.ConsultaResponseDto;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudConsulta;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -20,6 +25,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequiredArgsConstructor
 public class CrudConsultaImpl implements CrudConsulta {
     private final ConsultaRepository consultaRepository;
+    private final ClienteRepository clienteRepository;
+    private final EventoRepository eventoRepository;
+
     @Override
     public ConsultaResponseDto save(ConsultaRequestPostDto consultaRequestPostDto) {
 
@@ -51,90 +59,107 @@ public class CrudConsultaImpl implements CrudConsulta {
     }
 
     @Override
-    public Optional<ConsultaResponseDto> getOne(String id) {
-        Optional<Consulta> consulta = consultaRepository.findById(id);
+    public ConsultaResponseDto saveWithEvento(ConsultaWithEventoRequestPostDto consultaWithEventoPostDto) {
+        Cliente cliente = clienteRepository.findById(consultaWithEventoPostDto.getFk_cliente()).orElseThrow(() -> new EntityNotFoundException("Client not found"));
 
-        if (consulta.isPresent()) {
-            ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
-                    .id_consulta(consulta.get().getId_consulta())
-                    .profissional(consulta.get().getProfissional())
-                    .local_consulta(consulta.get().getLocal_consulta())
-                    .horario_consulta(consulta.get().getHorario_consulta())
-                    .fk_evento(consulta.get().getFk_evento())
-                    .build();
-            return Optional.of(consultaResponse);
-        } else {
-            return Optional.empty();
-        }
+        Evento evento = Evento.builder()
+                .tipo_evento("Consulta")
+                .desc_evento(consultaWithEventoPostDto.getDesc_evento())
+                .dt_evento(consultaWithEventoPostDto.getDt_evento())
+                .fk_cliente(cliente)
+                .build();
+
+        Evento eventoSalvo = eventoRepository.save(evento);
+
+        Consulta consulta = Consulta.builder()
+                .profissional(consultaWithEventoPostDto.getProfissional())
+                .local_consulta(consultaWithEventoPostDto.getLocal_consulta())
+                .horario_consulta(consultaWithEventoPostDto.getHorario_consulta())
+                .fk_evento(eventoSalvo)
+                .build();
+
+        Consulta consultaSalva = consultaRepository.save(consulta);
+
+        return ConsultaResponseDto.builder()
+                .id_consulta(consultaSalva.getId_consulta())
+                .profissional(consultaSalva.getProfissional())
+                .local_consulta(consultaSalva.getLocal_consulta())
+                .horario_consulta(consultaSalva.getHorario_consulta())
+                .build();
+    }
+
+    @Override
+    public ConsultaResponseDto getOne(String id) {
+        Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Consulta not found"));
+
+        return ConsultaResponseDto.builder()
+                .id_consulta(consulta.getId_consulta())
+                .profissional(consulta.getProfissional())
+                .local_consulta(consulta.getLocal_consulta())
+                .horario_consulta(consulta.getHorario_consulta())
+                .fk_evento(consulta.getFk_evento())
+                .build();
     }
 
     @Override
     public List<ConsultaResponseDto> getAll() {
         List<Consulta> listConsulta = consultaRepository.findAll();
-        List<ConsultaResponseDto> listConsultaResponse = listConsulta.stream()
+        return listConsulta.stream()
                 .map(consulta -> ConsultaResponseDto.builder()
                         .id_consulta(consulta.getId_consulta())
                         .profissional(consulta.getProfissional())
                         .local_consulta(consulta.getLocal_consulta())
                         .horario_consulta(consulta.getHorario_consulta())
                         .build()).toList();
-        return listConsultaResponse;
     }
 
     @Override
-    public Optional<ConsultaResponseDto> update(String id, ConsultaRequestPatchDto consultaRequestPatchDto) {
+    public ConsultaResponseDto update(String id, ConsultaRequestPatchDto consultaRequestPatchDto) {
 
-        int consultaHorarioAtualizado = 0;
-        int consultaLocalAtualizado = 0;
-        int consultaProfissionalAtualizado = 0;
+        Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Consulta not found"));
 
-        Consulta consultaASerAtualizada = Consulta.builder()
-                .horario_consulta(consultaRequestPatchDto.getHorario_consulta())
-                .local_consulta(consultaRequestPatchDto.getLocal_consulta())
-                .profissional(consultaRequestPatchDto.getProfissional())
+        consulta.setHorario_consulta(consultaRequestPatchDto.getHorario_consulta() != null ? consultaRequestPatchDto.getHorario_consulta() : consulta.getHorario_consulta());
+        consulta.setLocal_consulta(consultaRequestPatchDto.getLocal_consulta() != null ? consultaRequestPatchDto.getLocal_consulta() : consulta.getLocal_consulta());
+        consulta.setProfissional(consultaRequestPatchDto.getProfissional() != null ? consultaRequestPatchDto.getProfissional() : consulta.getProfissional());
+
+        Consulta consultaSalva = consultaRepository.save(consulta);
+
+        return  ConsultaResponseDto.builder()
+                .id_consulta(consultaSalva.getId_consulta())
+                .horario_consulta(consultaSalva.getHorario_consulta())
+                .local_consulta(consultaSalva.getLocal_consulta())
+                .profissional(consultaSalva.getProfissional())
                 .build();
+    }
 
-        if(consultaASerAtualizada.getHorario_consulta() != null){
-            consultaHorarioAtualizado = consultaRepository.updateHorarioById_consulta(
-                    consultaASerAtualizada.getHorario_consulta(),
-                    id
-            );
-        }
+    @Override
+    public ConsultaResponseDto updateWithEvento(String id, ConsultaWithEventoRequestPatchDto consultaWithEventoRequestPatchDto) {
+        Consulta consulta = consultaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Consulta not found"));
+        Evento evento = eventoRepository.findById(consulta.getFk_evento().getId_evento())
+                .orElseThrow(() -> new EntityNotFoundException("Evento not found"));
 
-        if(consultaASerAtualizada.getLocal_consulta() != null) {
-            consultaLocalAtualizado = consultaRepository.updateLocalById_consulta(
-                    consultaASerAtualizada.getLocal_consulta(),
-                    id
-            );
-        }
+        consulta.setHorario_consulta(consultaWithEventoRequestPatchDto.getHorario_consulta() != null ? consultaWithEventoRequestPatchDto.getHorario_consulta() : consulta.getHorario_consulta());
+        consulta.setLocal_consulta(consultaWithEventoRequestPatchDto.getLocal_consulta() != null ? consultaWithEventoRequestPatchDto.getLocal_consulta() : consulta.getLocal_consulta());
+        consulta.setProfissional(consultaWithEventoRequestPatchDto.getProfissional() != null ? consultaWithEventoRequestPatchDto.getProfissional() : consulta.getProfissional());
 
-        if(consultaASerAtualizada.getProfissional() != null) {
-            consultaProfissionalAtualizado = consultaRepository.updateProfissionalById_consulta(
-                    consultaASerAtualizada.getProfissional(),
-                    id
-            );
-        }
+        Consulta consultaSalva = consultaRepository.save(consulta);
 
+        evento.setDt_evento(consultaWithEventoRequestPatchDto.getDt_evento() != null ? consultaWithEventoRequestPatchDto.getDt_evento() : evento.getDt_evento());
+        evento.setDesc_evento(consultaWithEventoRequestPatchDto.getDesc_evento() != null ? consultaWithEventoRequestPatchDto.getDesc_evento() : evento.getDesc_evento());
 
-        if(consultaHorarioAtualizado != 0 || consultaLocalAtualizado != 0 || consultaProfissionalAtualizado != 0) {
-            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
-            if(consultaAtualizadaResponse.isPresent()) {
-                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
-                        .id_consulta(consultaAtualizadaResponse.get().getId_consulta())
-                        .horario_consulta(consultaAtualizadaResponse.get().getHorario_consulta())
-                        .local_consulta(consultaAtualizadaResponse.get().getLocal_consulta())
-                        .profissional(consultaAtualizadaResponse.get().getProfissional())
-                        .build();
-                return Optional.ofNullable(consultaResponse);
-            }
-            return Optional.empty();
-        } else {
-            return Optional.empty();
-        }
+        eventoRepository.save(evento);
+
+        return  ConsultaResponseDto.builder()
+                .id_consulta(consultaSalva.getId_consulta())
+                .horario_consulta(consultaSalva.getHorario_consulta())
+                .local_consulta(consultaSalva.getLocal_consulta())
+                .profissional(consultaSalva.getProfissional())
+                .build();
     }
 
 //    @Override
-//    public Optional<ConsultaResponseDto> updateHorario(String id, ConsultaRequestPatchHorarioDto consultaRequestPatchHorarioDto) {
+//    public ConsultaResponseDto updateHorario(String id, ConsultaRequestPatchHorarioDto consultaRequestPatchHorarioDto) {
 //
 //        Consulta consultaASerAtualizada = Consulta.builder()
 //                .horario_consulta(consultaRequestPatchHorarioDto.getHorario_consulta())
@@ -146,21 +171,21 @@ public class CrudConsultaImpl implements CrudConsulta {
 //        );
 //
 //        if(consultaAtualizada != 0) {
-//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            ConsultaResponseDto consultaAtualizadaResponse = getOne(id);
 //            if(consultaAtualizadaResponse.isPresent()) {
 //                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
 //                        .horario_consulta(consultaAtualizadaResponse.get().getHorario_consulta())
 //                        .build();
-//                return Optional.ofNullable(consultaResponse);
+//                return ofNullableconsultaResponse);
 //            }
-//            return Optional.empty();
+//            return empty);
 //        } else {
-//            return Optional.empty();
+//            return empty);
 //        }
 //    }
 //
 //    @Override
-//    public Optional<ConsultaResponseDto> updateLocal(String id, ConsultaRequestPatchLocalDto consultaRequestPatchLocalDto) {
+//    public ConsultaResponseDto updateLocal(String id, ConsultaRequestPatchLocalDto consultaRequestPatchLocalDto) {
 //
 //        Consulta consultaASerAtualizada = Consulta.builder()
 //                .local_consulta(consultaRequestPatchLocalDto.getLocal_consulta())
@@ -172,21 +197,21 @@ public class CrudConsultaImpl implements CrudConsulta {
 //        );
 //
 //        if(consultaAtualizada != 0) {
-//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            ConsultaResponseDto consultaAtualizadaResponse = getOne(id);
 //            if(consultaAtualizadaResponse.isPresent()) {
 //                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
 //                        .local_consulta(consultaAtualizadaResponse.get().getLocal_consulta())
 //                        .build();
-//                return Optional.ofNullable(consultaResponse);
+//                return ofNullableconsultaResponse);
 //            }
-//            return Optional.empty();
+//            return empty);
 //        } else {
-//            return Optional.empty();
+//            return empty);
 //        }
 //    }
 //
 //    @Override
-//    public Optional<ConsultaResponseDto> updateProfissional(String id, ConsultaRequestPatchProfissionalDto consultaRequestPatchProfissionalDto) {
+//    public ConsultaResponseDto updateProfissional(String id, ConsultaRequestPatchProfissionalDto consultaRequestPatchProfissionalDto) {
 //
 //        Consulta consultaASerAtualizada = Consulta.builder()
 //                .profissional(consultaRequestPatchProfissionalDto.getProfissional())
@@ -198,16 +223,16 @@ public class CrudConsultaImpl implements CrudConsulta {
 //        );
 //
 //        if(consultaAtualizada != 0) {
-//            Optional<ConsultaResponseDto> consultaAtualizadaResponse = getOne(id);
+//            ConsultaResponseDto consultaAtualizadaResponse = getOne(id);
 //            if(consultaAtualizadaResponse.isPresent()) {
 //                ConsultaResponseDto consultaResponse = ConsultaResponseDto.builder()
 //                        .profissional(consultaAtualizadaResponse.get().getProfissional())
 //                        .build();
-//                return Optional.ofNullable(consultaResponse);
+//                return ofNullableconsultaResponse);
 //            }
-//            return Optional.empty();
+//            return empty);
 //        } else {
-//            return Optional.empty();
+//            return empty);
 //        }
 //    }
 

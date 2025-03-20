@@ -8,6 +8,7 @@ import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
+import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudCliente;
 import jakarta.persistence.EntityNotFoundException;
@@ -67,10 +68,18 @@ public class CrudClienteImpl implements CrudCliente {
     public ClienteResponseDto getOne(String id) {
 
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client not found"));
+
+        List<String> doencasIds = cliente.getFk_doencas().stream()
+                .map(Doenca::getId_doenca)
+                .collect(Collectors.toList());
+
         return ClienteResponseDto.builder()
-                        .id_cliente(cliente.getId_cliente())
-                        .nm_cliente(cliente.getNm_cliente())
-                        .doencas(cliente.getFk_doencas())
+                .id_cliente(cliente.getId_cliente())
+                .nm_cliente(cliente.getNm_cliente())
+                .doencas(doencasIds) // Lista de IDs
+                .nm_doencas(cliente.getFk_doencas().stream()
+                        .map(Doenca::getNm_doenca)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -90,7 +99,7 @@ public class CrudClienteImpl implements CrudCliente {
     }
 
     @Override
-    public Optional<ClienteResponseDto> update(String id, ClienteRequestDto clienteRequestDto) {
+    public ClienteResponseDto update(String id, ClienteRequestDto clienteRequestDto) {
         List<Doenca> doencas = new ArrayList<>();
         if (clienteRequestDto.getDoencas() != null && !clienteRequestDto.getDoencas().isEmpty()) {
             doencas = doencaRepository.findAllById(clienteRequestDto.getDoencas());
@@ -103,16 +112,16 @@ public class CrudClienteImpl implements CrudCliente {
 
         Cliente updatedClient = clienteRepository.save(cliente);
 
-        return Optional.of(ClienteResponseDto.builder()
-                        .id_cliente(updatedClient.getId_cliente())
-                        .nm_cliente(updatedClient.getNm_cliente())
-                        .nm_doencas(cliente.getFk_doencas() != null ?
-                                cliente.getFk_doencas().stream()
-                                        .map(Doenca::getNm_doenca)
-                                        .collect(Collectors.toList())
-                                : List.of())
-                        .build());
-    }
+        return ClienteResponseDto.builder()
+                .id_cliente(updatedClient.getId_cliente())
+                .nm_cliente(updatedClient.getNm_cliente())
+                .nm_doencas(cliente.getFk_doencas() != null ?
+                        cliente.getFk_doencas().stream()
+                                .map(Doenca::getNm_doenca)
+                                .collect(Collectors.toList())
+                        : List.of())
+                .build();
+}
 
     @Override
     public void delete(String id) {

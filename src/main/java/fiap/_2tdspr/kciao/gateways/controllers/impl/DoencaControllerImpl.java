@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,11 +17,11 @@ public class DoencaControllerImpl implements DoencaController {
     private final CrudDoencaImpl crudDoenca;
 
     @Override
-    public ResponseEntity<Optional<DoencaResponseDto>> getDoenca(String id) {
+    public ResponseEntity<DoencaResponseDto> getDoenca(String id) {
 
-        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.getOne(id);
+        DoencaResponseDto doencaResponseDto = crudDoenca.getOne(id);
 
-        return ResponseEntity.of(Optional.of(doencaResponseDto));
+        return ResponseEntity.ok(doencaResponseDto);
     }
 
     @Override
@@ -38,15 +37,15 @@ public class DoencaControllerImpl implements DoencaController {
 
         DoencaResponseDto doencaSalva = crudDoenca.save(doenca);
 
-        return ResponseEntity.of(Optional.of(doencaSalva));
+        return ResponseEntity.ok(doencaSalva);
     }
 
     @Override
-    public ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(String id, DoencaRequestDto doencaRequestDto) {
+    public ResponseEntity<DoencaResponseDto> atualizarDoenca(String id, DoencaRequestDto doencaRequestDto) {
 
-        Optional<DoencaResponseDto> doencaResponseDto = crudDoenca.update(id, doencaRequestDto);
+        DoencaResponseDto doencaResponseDto = crudDoenca.update(id, doencaRequestDto);
 
-        return ResponseEntity.of(Optional.of(doencaResponseDto));
+        return ResponseEntity.ok(doencaResponseDto);
     }
 
     @Override

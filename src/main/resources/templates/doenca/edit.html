@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Editar Doença</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Editar Doença</h1>
+
+    <form th:action="@{/view/doenca/{id}(id=${doencaEditDto.id_doenca})}" th:object="${doencaEditDto}" method="post">
+        <input type="hidden" th:field="*{id_doenca}"/>
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" th:field="*{nm_doenca}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('nm_doenca')}"
+                   th:errors="*{nm_doenca}"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <a th:href="@{/view/doenca}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

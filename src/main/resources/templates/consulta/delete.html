@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Excluir Consulta</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Confirmar Exclusão</h1>
+
+    <div class="alert alert-warning">
+        Tem certeza que deseja excluir a consulta com o profissional <span th:text="${consulta.profissional}"></span>?
+    </div>
+
+    <form th:action="@{/view/consulta/delete/{id}(id=${consulta.id_consulta})}" method="post">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        <a th:href="@{/view/consulta}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

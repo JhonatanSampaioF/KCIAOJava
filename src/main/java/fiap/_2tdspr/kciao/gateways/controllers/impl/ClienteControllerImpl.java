@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +22,7 @@ public class ClienteControllerImpl implements ClienteController {
 
         ClienteResponseDto clienteResponseDto = crudCliente.getOne(id);
 
-        return ResponseEntity.of(Optional.of(clienteResponseDto));
+        return ResponseEntity.ok(clienteResponseDto);
     }
 
     @Override
@@ -39,15 +38,15 @@ public class ClienteControllerImpl implements ClienteController {
 
         ClienteResponseDto clienteSalvo = crudCliente.save(cliente);
 
-        return ResponseEntity.of(Optional.of(clienteSalvo));
+        return ResponseEntity.ok(clienteSalvo);
     }
 
     @Override
-    public ResponseEntity<Optional<ClienteResponseDto>> atualizarCliente(String id, ClienteRequestDto clienteRequestDto) {
+    public ResponseEntity<ClienteResponseDto> atualizarCliente(String id, ClienteRequestDto clienteRequestDto) {
 
-        Optional<ClienteResponseDto> clienteResponseDto = crudCliente.update(id, clienteRequestDto);
+        ClienteResponseDto clienteResponseDto = crudCliente.update(id, clienteRequestDto);
 
-        return ResponseEntity.of(Optional.of(clienteResponseDto));
+        return ResponseEntity.ok(clienteResponseDto);
     }
 
     @Override

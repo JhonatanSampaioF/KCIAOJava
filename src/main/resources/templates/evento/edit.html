@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Editar Evento</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Editar Evento</h1>
+
+    <form th:action="@{/view/evento/{id}(id=${eventoEditDto.id_evento})}" th:object="${eventoEditDto}" method="post">
+        <input type="hidden" th:field="*{id_evento}"/>
+        <div class="mb-3">
+            <label class="form-label">Tipo Evento</label>
+            <input type="text" class="form-control" th:field="*{tipo_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('tipo_evento')}"
+                   th:errors="*{tipo_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descrição Evento</label>
+            <input type="text" class="form-control" th:field="*{desc_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('desc_evento')}"
+                   th:errors="*{desc_evento}"></small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Data Evento</label>
+            <input type="date" class="form-control" th:field="*{dt_evento}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('dt_evento')}"
+                   th:errors="*{dt_evento}"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <a th:href="@{/view/evento}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

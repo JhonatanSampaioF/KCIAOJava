@@ -11,8 +11,8 @@ import java.util.Optional;
 @Service
 public interface CrudEvento {
     EventoResponseDto save(EventoRequestPostDto eventoRequestPostDto);
-    Optional<EventoResponseDto> getOne(String id);
+    EventoResponseDto getOne(String id);
     List<EventoResponseDto> getAll();
-    Optional<EventoResponseDto> update(String id, EventoRequestPatchDto eventoRequestPatchDto);
+    EventoResponseDto update(String id, EventoRequestPatchDto eventoRequestPatchDto);
     void delete(String id);
 }

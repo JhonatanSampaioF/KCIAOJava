@@ -6,11 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface MvcClienteController {
 
-    ModelAndView getAllClient();
-    ModelAndView formNewClient();
-    ModelAndView formUpdateClient(String id);
+    ModelAndView getAllCliente();
+    ModelAndView formNewCliente();
+    ModelAndView formUpdateCliente(String id);
     ModelAndView confirmDelete(String id);
-    ModelAndView saveClient(ClienteRequestDto clienteRequestDto, BindingResult result);
-    ModelAndView updateClient(String id, ClienteRequestDto clienteRequestDto, BindingResult result);
-    ModelAndView deleteClient(String id);
+    ModelAndView saveCliente(ClienteRequestDto clienteRequestDto, BindingResult result);
+    ModelAndView updateCliente(String id, ClienteRequestDto clienteRequestDto, BindingResult result);
+    ModelAndView deleteCliente(String id);
 }

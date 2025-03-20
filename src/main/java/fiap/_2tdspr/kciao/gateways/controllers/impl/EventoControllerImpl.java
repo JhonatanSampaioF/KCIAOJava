@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,11 +18,11 @@ public class EventoControllerImpl implements EventoController {
     private final CrudEventoImpl crudEvento;
 
     @Override
-    public ResponseEntity<Optional<EventoResponseDto>> getEvento(String id) {
+    public ResponseEntity<EventoResponseDto> getEvento(String id) {
 
-        Optional<EventoResponseDto> eventoResponseDto = crudEvento.getOne(id);
+        EventoResponseDto eventoResponseDto = crudEvento.getOne(id);
 
-        return ResponseEntity.of(Optional.of(eventoResponseDto));
+        return ResponseEntity.ok(eventoResponseDto);
     }
 
     @Override
@@ -39,15 +38,15 @@ public class EventoControllerImpl implements EventoController {
 
         EventoResponseDto eventoSalvo = crudEvento.save(evento);
 
-        return ResponseEntity.of(Optional.of(eventoSalvo));
+        return ResponseEntity.ok(eventoSalvo);
     }
 
     @Override
-    public ResponseEntity<Optional<EventoResponseDto>> atualizarEvento(String id, EventoRequestPatchDto eventoRequestPatchDto) {
+    public ResponseEntity<EventoResponseDto> atualizarEvento(String id, EventoRequestPatchDto eventoRequestPatchDto) {
 
-        Optional<EventoResponseDto> eventoResponseDto = crudEvento.update(id, eventoRequestPatchDto);
+        EventoResponseDto eventoResponseDto = crudEvento.update(id, eventoRequestPatchDto);
 
-        return ResponseEntity.of(Optional.of(eventoResponseDto));
+        return ResponseEntity.ok(eventoResponseDto);
     }
 
     @Override

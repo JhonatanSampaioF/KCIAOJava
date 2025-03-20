@@ -8,14 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/doenca")
 public interface DoencaController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<DoencaResponseDto>> getDoenca(@PathVariable @Valid String id);
+    ResponseEntity<DoencaResponseDto> getDoenca(@PathVariable @Valid String id);
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -27,7 +26,7 @@ public interface DoencaController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<Optional<DoencaResponseDto>> atualizarDoenca(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestDto doencaRequestDto);
+    ResponseEntity<DoencaResponseDto> atualizarDoenca(@PathVariable @Valid String id, @RequestBody @Valid DoencaRequestDto doencaRequestDto);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

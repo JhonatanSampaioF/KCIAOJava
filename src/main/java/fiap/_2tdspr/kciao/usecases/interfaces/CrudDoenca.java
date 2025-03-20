@@ -10,9 +10,9 @@ import java.util.Optional;
 @Service
 public interface CrudDoenca {
     DoencaResponseDto save(DoencaRequestDto doencaRequestDto);
-    Optional<DoencaResponseDto> getOne(String id);
+    DoencaResponseDto getOne(String id);
     List<DoencaResponseDto> getAll();
-    Optional<DoencaResponseDto> update(String id, DoencaRequestDto doencaRequestDto);
+    DoencaResponseDto update(String id, DoencaRequestDto doencaRequestDto);
     void delete(String id);
 
 }
