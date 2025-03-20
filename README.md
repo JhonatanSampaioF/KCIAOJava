@@ -79,6 +79,11 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 
 ---
 
+## Apresentação da Aplicação
+### [Apresentacao aplicacao](https://youtu.be/gWtCW0d_5qQ)
+
+---
+
 ## Lista de endpoints
 Os endpoints documentados abaixo são funcionais para todos os domínios da aplicação, sendo necessária apenas a alteração da URL correspondente e do corpo da requisição.
 </br>
