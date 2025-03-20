@@ -1,5 +1,6 @@
 # KCIAO
 
+## Integrantes
 Gustavo Vieira Bargas - Pitch da proposta
 </br>
 Jhonatan Sampaio Ferreira - Desenvolvimento da aplicação
@@ -13,8 +14,7 @@ Vivian Sy Ting Wu - Desenvolvimento da documentação
 ### Cronograma de Atividades Sprint 2
 ![Cronograma de Atividades Sprint 2](https://github.com/user-attachments/assets/21664f1d-dc8e-4f9d-b843-fa29c3dc5cfa)
 
-
-
+---
 
 ## Instrução de como rodar a aplicação
 
@@ -59,7 +59,7 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 </br>
 ![DELETE](https://github.com/user-attachments/assets/5f2fac12-eb73-4555-bfa7-7ba8cae70b5e)
 
-
+---
 
 ## Diagramas
 ### Diagrama de Classe dos domínios
@@ -72,12 +72,12 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 
 ![Diagrama Entidade Relacionamento](https://github.com/user-attachments/assets/ae628ad2-3d00-4106-8eb6-7ea5ed0e9595)
 
-
+---
 
 ## Pitch apresentação
 ### [Video Pitch](https://www.youtube.com/watch?v=jUbJweG8XMY)
 
-
+---
 
 ## Lista de endpoints
 Os endpoints documentados abaixo são funcionais para todos os domínios da aplicação, sendo necessária apenas a alteração da URL correspondente e do corpo da requisição.
@@ -127,7 +127,7 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 | PATCH | http://localhost:8080/evento/:idEvento |
 | DELETE | http://localhost:8080/evento/:idEvento |
 
-
+---
 
 ## Teste dos endpoints
 
@@ -142,7 +142,6 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 ##### GET (eventos by id)
 ![image](https://github.com/user-attachments/assets/60185d5f-a962-4144-9031-aa4d673b7166)
 
-
 ##### POST
 ![image](https://github.com/user-attachments/assets/863ea3e9-9bfc-4d14-9c80-6dff9f735fd8)
 
@@ -151,8 +150,6 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 
 ##### DELETE
 ![image](https://github.com/user-attachments/assets/2896168b-0d96-4873-8136-138cbd198f8c)
-
-
 
 #### Consulta
 
@@ -209,22 +206,22 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 ![image](https://github.com/user-attachments/assets/dbf1b41a-213d-4a58-82d2-315b9eb42f44)
 
 
+---
 
-
-# Deploy e Teste da API em Docker
+## Deploy e Teste da API em Docker
 
 Este projeto contém uma API Java, que será executada dentro de um contêiner Docker com o Nginx atuando como proxy reverso. As instruções a seguir explicam como fazer o deploy e testar a aplicação.
 
-## Pré-requisitos
+### Pré-requisitos
 
 Certifique-se de que as seguintes ferramentas estão instaladas na sua máquina:
 
 - **Docker** (incluindo Docker Compose)
 - **Git** (para clonar o repositório, se necessário)
 
-## Passos para o Deploy
+### Passos para o Deploy
 
-### 1. Clonar o Repositório
+#### 1. Clonar o Repositório
 
 Primeiro, clone este repositório para a sua máquina virtual:
 
@@ -236,7 +233,7 @@ cd KCIAOJava
 ![image](https://github.com/user-attachments/assets/66dcf086-b5e7-4e35-99d3-ee867426c433)
 
 
-### 2. Construir as Imagens Docker
+#### 2. Construir as Imagens Docker
 
 Entre no repositório:
 
@@ -255,7 +252,7 @@ docker build -t nome-da-sua-imagem
 
 Isso irá construir as imagens para o serviço `api` e o Nginx.
 
-### 3. Subir os Contêineres
+#### 3. Subir os Contêineres
 
 Para iniciar os contêineres em segundo plano, execute:
 
@@ -268,7 +265,7 @@ docker-compose up -d
 
 Este comando cria e inicia os contêineres, com a API rodando no contêiner `api` e o Nginx no contêiner `nginx`.
 
-### 4. Verificar se os Contêineres estão Rodando
+#### 4. Verificar se os Contêineres estão Rodando
 
 Para verificar o status dos contêineres, use:
 
@@ -279,7 +276,7 @@ docker-compose ps
 ![image](https://github.com/user-attachments/assets/a87e2a8c-d197-46fd-ab48-0c8ea53ffc33)
 
 
-### 5. Testar a Aplicação
+#### 5. Testar a Aplicação
 
 Com a IP Pública da máquina virtual (4.201.170.178) e os contêineres em funcionamento, você pode acessar a aplicação através do Nginx na porta `8081`:
 
@@ -287,7 +284,7 @@ Com a IP Pública da máquina virtual (4.201.170.178) e os contêineres em funci
 
 Isso fará com que as requisições sejam encaminhadas para o contêiner da API na porta `8080`.
 
-### 6. Parar os Contêineres
+#### 6. Parar os Contêineres
 
 Quando terminar, você pode parar os contêineres com o comando:
 
@@ -315,9 +312,31 @@ Isso deve retornar a resposta da sua API (verifique o endpoint específico da su
 
 ---
 
-## Arquitetura do Projeto
+## Arquitetura
 
-- **API Java**: A aplicação Java roda dentro do contêiner `api`, que é construído usando o `Dockerfile` presente no repositório.
-- **Nginx**: O Nginx atua como um proxy reverso, redirecionando as requisições feitas na porta 8081 para o contêiner da API na porta 8080.
-- **Docker Compose**: Utilizado para orquestrar a criação e execução dos contêineres de forma simples.
+### Abordagem Monolítica
+A API foi desenvolvida em **arquitetura monolítica**, justificada por:
 
+| **Vantagem** | **Explicação** |
+|--------------|----------------|
+| **Baixa Complexidade** | Projeto de baixa complexidade, não gerando necessidade da divisão em microsserviços. |
+| **Simplicidade** | Escopo definido e funcionalidades centralizadas. |
+| **Custo Reduzido** | Sem necessidade de infraestrutura complexa. |
+| **Integração Simplificada** | Comunicação única com o app mobile existente. |
+| **Velocidade** | Entrega ágil de MVP para validação do conceito. |
+| **Integração Simplificada** | Comunicação única com o frontend mobile, sem utilização de múltiplas apis. |
+
+### Estrutura do Projeto
+KCIAOJava/</br>
+├── Domains/               # Entidades</br>
+├── Gateways/</br>
+│   ├── Repositories/      # Acesso a dados</br>
+│   └── Controllers/       # Endpoints da API</br>
+│   │   └── mvc/ # Mvcs da API</br>
+└── Usecases/              # Lógica de negócio</br>
+
+---
+
+### Design Patterns
+1. **Repository Pattern**: Utilizado para isolar a lógica de acesso ao banco de dados.
+2. **Dependency Injection**: Utilizado para desacoplar componentes e facilitar testes.
