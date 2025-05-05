@@ -139,4 +139,56 @@ public class CrudClienteImpl implements CrudCliente {
                         .dt_evento(evento.getDt_evento())
                         .build()).toList();
     }
+
+    @Override
+    public ClienteResponseDto addDoenca(String idCliente, String idDoenca) {
+        Doenca newDoenca = doencaRepository.findById(idDoenca)
+                .orElseThrow(() -> new EntityNotFoundException("Doença não encontrada"));
+
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        List<Doenca> doencaList = cliente.getFk_doencas();
+
+        doencaList.add(newDoenca);
+
+        cliente.setFk_doencas(doencaList);
+
+        Cliente savedCliente = clienteRepository.save(cliente);
+
+        return ClienteResponseDto.builder()
+                .id_cliente(savedCliente.getId_cliente())
+                .nm_cliente(savedCliente.getNm_cliente())
+                .doencas(savedCliente.getFk_doencas()
+                        .stream()
+                        .map(Doenca::getId_doenca)
+                        .toList())
+                .build();
+    }
+
+    @Override
+    public ClienteResponseDto removeDoenca(String idCliente, String idDoenca) {
+        Doenca newDoenca = doencaRepository.findById(idDoenca)
+                .orElseThrow(() -> new EntityNotFoundException("Doença não encontrada"));
+
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        List<Doenca> doencaList = cliente.getFk_doencas();
+
+        doencaList.remove(newDoenca);
+
+        cliente.setFk_doencas(doencaList);
+
+        Cliente savedCliente = clienteRepository.save(cliente);
+
+        return ClienteResponseDto.builder()
+                .id_cliente(savedCliente.getId_cliente())
+                .nm_cliente(savedCliente.getNm_cliente())
+                .doencas(savedCliente.getFk_doencas()
+                        .stream()
+                        .map(Doenca::getId_doenca)
+                        .toList())
+                .build();
+    }
 }

@@ -60,4 +60,14 @@ public class ClienteControllerImpl implements ClienteController {
 
         return ResponseEntity.ok(eventoResponseDtoList);
     }
+
+    @Override
+    public ResponseEntity<ClienteResponseDto> adicionarDoenca(String idCliente, String idDoenca) {
+        return ResponseEntity.ok(crudCliente.addDoenca(idCliente,idDoenca));
+    }
+
+    @Override
+    public ResponseEntity<ClienteResponseDto> removerDoenca(String idCliente, String idDoenca) {
+        return ResponseEntity.ok(crudCliente.removeDoenca(idCliente,idDoenca));
+    }
 }
