@@ -9,5 +9,7 @@ import java.util.List;
 public class ClienteRequestDto {
     @NotEmpty
     private String nm_cliente;
+    private String email;
+    private String password;
     private List<String> doencas;
 }
