@@ -18,6 +18,8 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id_cliente;
     private String nm_cliente;
+    private String email;
+    private String password;
 
     @OneToMany(mappedBy = "fk_cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evento> eventos;
