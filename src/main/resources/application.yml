@@ -20,5 +20,5 @@ spring:
     resources:
       static-locations: classpath:/static/
 jwt:
-  secret: suaChaveSecretaSuperSeguraComPeloMenos256BitsDeTamanho
+  secret: suaChaveSecretaSuperSeguraComPeloMenos512BitsDeTamanho
   expiration: 3600000  # 1 hora em milissegundos
