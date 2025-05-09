@@ -87,89 +87,12 @@ public class CrudEventoImpl implements CrudEvento {
         Evento eventoSalvo = eventoRepository.save(evento);
 
         return EventoResponseDto.builder()
+                .id_evento(eventoSalvo.getId_evento())
                 .tipo_evento(eventoSalvo.getTipo_evento())
                 .desc_evento(eventoSalvo.getDesc_evento())
                 .dt_evento(eventoSalvo.getDt_evento())
                 .build();
     }
-
-//    @Override
-//    public EventoResponseDto updateData(String id, EventoRequestPatchDataDto eventoRequestPatchDataDto) {
-//
-//        Evento eventoASerAtualizado = Evento.builder()
-//                .dt_evento(eventoRequestPatchDataDto.getDt_evento())
-//                .build();
-//
-//        int eventoAtualizado = eventoRepository.updateDataById_evento(
-//                eventoASerAtualizado.getDt_evento(),
-//                id
-//        );
-//
-//        if (eventoAtualizado != 0) {
-//            EventoResponseDto eventoAtualizadoResponse = getOne(id);
-//            if (eventoAtualizadoResponse.isPresent()) {
-//                EventoResponseDto eventoResponse = EventoResponseDto.builder()
-//                        .dt_evento(eventoAtualizadoResponse.get().getDt_evento())
-//                        .build();
-//                return ofNullableeventoResponse);
-//            }
-//            return empty);
-//        } else {
-//            return empty);
-//        }
-//    }
-//
-//    @Override
-//    public EventoResponseDto updateDescricao(String id, EventoRequestPatchDescricaoDto eventoRequestPatchDescricaoDto) {
-//
-//        Evento eventoASerAtualizado = Evento.builder()
-//                .desc_evento(eventoRequestPatchDescricaoDto.getDesc_evento())
-//                .build();
-//
-//        int eventoAtualizado = eventoRepository.updateDescricaoById_evento(
-//                eventoASerAtualizado.getDesc_evento(),
-//                id
-//        );
-//
-//        if (eventoAtualizado != 0) {
-//            EventoResponseDto eventoAtualizadoResponse = getOne(id);
-//            if (eventoAtualizadoResponse.isPresent()) {
-//                EventoResponseDto eventoResponse = EventoResponseDto.builder()
-//                        .desc_evento(eventoAtualizadoResponse.get().getDesc_evento())
-//                        .build();
-//                return ofNullableeventoResponse);
-//            }
-//            return empty);
-//        } else {
-//            return empty);
-//        }
-//    }
-//
-//    @Override
-//    public EventoResponseDto updateTipo(String id, EventoRequestPatchTipoDto eventoRequestPatchTipoDto) {
-//
-//        Evento eventoASerAtualizado = Evento.builder()
-//                .tipo_evento(eventoRequestPatchTipoDto.getTipo_evento())
-//                .build();
-//
-//        int eventoAtualizado = eventoRepository.updateTipoById_evento(
-//                eventoASerAtualizado.getTipo_evento(),
-//                id
-//        );
-//
-//        if (eventoAtualizado != 0) {
-//            EventoResponseDto eventoAtualizadoResponse = getOne(id);
-//            if (eventoAtualizadoResponse.isPresent()) {
-//                EventoResponseDto eventoResponse = EventoResponseDto.builder()
-//                        .tipo_evento(eventoAtualizadoResponse.get().getTipo_evento())
-//                        .build();
-//                return ofNullableeventoResponse);
-//            }
-//            return empty);
-//        } else {
-//            return empty);
-//        }
-//    }
 
     @Override
     public void delete(String id) {

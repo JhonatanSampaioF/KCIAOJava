@@ -86,6 +86,7 @@ public class CrudClienteImpl implements CrudCliente {
     @Override
     public List<ClienteResponseDto> getAll() {
         List<Cliente> listCliente = clienteRepository.findAll();
+        clienteRepository.relatorioEventosConsultasCliente();
         return listCliente.stream()
                 .map(cliente -> ClienteResponseDto.builder()
                         .id_cliente(cliente.getId_cliente())

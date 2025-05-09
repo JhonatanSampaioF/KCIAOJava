@@ -27,15 +27,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, String> {
     @Transactional
     @Query("SELECT e FROM Evento e where e.fk_cliente.id_cliente = :id")
     List<Evento> findAllEventobyId(@Param("id") @Valid String id);
-    // Patch Lista Doencas
-//    @Modifying
-//    @Transactional
-//    @Query("INSERT INTO Cliente c (c.nm_cliente) values (:name"))
-//    int addDoencaToCliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
-//
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE Cliente c SET c.nm_cliente = :name WHERE c.id_cliente = :id")
-//    int deleteDoencaFromCliente(@Param("name") @Valid String name, @Param("id") @Valid String id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "BEGIN relatorio_eventos_consultas_cliente; END;", nativeQuery = true)
+    void relatorioEventosConsultasCliente();
 
 }
