@@ -2,9 +2,12 @@ package fiap._2tdspr.kciao.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @ToString
@@ -13,11 +16,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Cliente {
+public class Cliente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id_cliente;
     private String nm_cliente;
+    private String email;
+    private String password;
+    private Roles role;
 
     @OneToMany(mappedBy = "fk_cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evento> eventos;
@@ -29,4 +35,20 @@ public class Cliente {
             inverseJoinColumns = @JoinColumn(name = "doenca_id")
     )
     private List<Doenca> fk_doencas;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;  // Ou o campo que você usa como username
+    }
+
+    public enum Roles {
+        ADMIN,
+        USER,
+        VIEWER
+    }
 }

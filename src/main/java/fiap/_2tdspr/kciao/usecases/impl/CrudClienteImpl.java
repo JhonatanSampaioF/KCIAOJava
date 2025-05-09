@@ -8,16 +8,15 @@ import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
-import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudCliente;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -28,6 +27,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CrudClienteImpl implements CrudCliente {
     private final ClienteRepository clienteRepository;
     private final DoencaRepository doencaRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public ClienteResponseDto save(ClienteRequestDto clienteRequestDto) {
@@ -40,6 +40,9 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente clienteASerCriado = Cliente.builder()
                 .nm_cliente(clienteRequestDto.getNm_cliente())
                 .fk_doencas(doencas)
+                .email(clienteRequestDto.getEmail())
+                .password(passwordEncoder.encode(clienteRequestDto.getPassword()))
+                .role(Cliente.Roles.USER)
                 .build();
 
         Cliente clienteSalvo = clienteRepository.save(clienteASerCriado);
@@ -110,6 +113,7 @@ public class CrudClienteImpl implements CrudCliente {
 
         cliente.setNm_cliente(clienteRequestDto.getNm_cliente());
         cliente.setFk_doencas(doencas);
+        cliente.setPassword(passwordEncoder.encode(clienteRequestDto.getPassword()));
 
         Cliente updatedClient = clienteRepository.save(cliente);
 
@@ -139,5 +143,57 @@ public class CrudClienteImpl implements CrudCliente {
                         .desc_evento(evento.getDesc_evento())
                         .dt_evento(evento.getDt_evento())
                         .build()).toList();
+    }
+
+    @Override
+    public ClienteResponseDto addDoenca(String idCliente, String idDoenca) {
+        Doenca newDoenca = doencaRepository.findById(idDoenca)
+                .orElseThrow(() -> new EntityNotFoundException("Doença não encontrada"));
+
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        List<Doenca> doencaList = cliente.getFk_doencas();
+
+        doencaList.add(newDoenca);
+
+        cliente.setFk_doencas(doencaList);
+
+        Cliente savedCliente = clienteRepository.save(cliente);
+
+        return ClienteResponseDto.builder()
+                .id_cliente(savedCliente.getId_cliente())
+                .nm_cliente(savedCliente.getNm_cliente())
+                .doencas(savedCliente.getFk_doencas()
+                        .stream()
+                        .map(Doenca::getId_doenca)
+                        .toList())
+                .build();
+    }
+
+    @Override
+    public ClienteResponseDto removeDoenca(String idCliente, String idDoenca) {
+        Doenca newDoenca = doencaRepository.findById(idDoenca)
+                .orElseThrow(() -> new EntityNotFoundException("Doença não encontrada"));
+
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+
+        List<Doenca> doencaList = cliente.getFk_doencas();
+
+        doencaList.remove(newDoenca);
+
+        cliente.setFk_doencas(doencaList);
+
+        Cliente savedCliente = clienteRepository.save(cliente);
+
+        return ClienteResponseDto.builder()
+                .id_cliente(savedCliente.getId_cliente())
+                .nm_cliente(savedCliente.getNm_cliente())
+                .doencas(savedCliente.getFk_doencas()
+                        .stream()
+                        .map(Doenca::getId_doenca)
+                        .toList())
+                .build();
     }
 }

@@ -79,6 +79,11 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 
 ---
 
+## Apresentação da Aplicação
+### [Apresentacao aplicacao](https://youtu.be/gWtCW0d_5qQ)
+
+---
+
 ## Lista de endpoints
 Os endpoints documentados abaixo são funcionais para todos os domínios da aplicação, sendo necessária apenas a alteração da URL correspondente e do corpo da requisição.
 </br>
@@ -208,107 +213,73 @@ Os endpoints documentados abaixo são funcionais para todos os domínios da apli
 
 ---
 
-## Deploy e Teste da API em Docker
-
-Este projeto contém uma API Java, que será executada dentro de um contêiner Docker com o Nginx atuando como proxy reverso. As instruções a seguir explicam como fazer o deploy e testar a aplicação.
+## Deploy em WebApp no Azure, utilizando o VS Code
 
 ### Pré-requisitos
 
-Certifique-se de que as seguintes ferramentas estão instaladas na sua máquina:
+Certifique-se de que o **Maven** esteja instalado em sua máquina, e que a extensão Azure Tools esteja instalada em seu VS Code.
 
-- **Docker** (incluindo Docker Compose)
-- **Git** (para clonar o repositório, se necessário)
+
 
 ### Passos para o Deploy
 
 #### 1. Clonar o Repositório
 
-Primeiro, clone este repositório para a sua máquina virtual:
+Primeiro, clone este repositório para a sua máquina:
 
 ```bash
 git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/JhonatanSampaioF/KCIAOJava.git)
 cd KCIAOJava
 ```
 
-![image](https://github.com/user-attachments/assets/66dcf086-b5e7-4e35-99d3-ee867426c433)
 
 
-#### 2. Construir as Imagens Docker
+#### 2. Crie um WebApp
 
-Entre no repositório:
+Abra a extensão do Azure no VS Code, expanda uma subscrição, clique com o botão direito em 'App Services' e clique em 'Create New Web App... (Advanced)':
 
-```bash
-cd KCIAOJava
-```
-
-Na pasta do repositório, execute o comando abaixo para construir as imagens Docker usando o `dockerfile`:
-
-```bash
-docker build -t nome-da-sua-imagem
-```
-
-![image](https://github.com/user-attachments/assets/80d79445-b8bf-466a-9b61-a92d4ce6fa17)
+![image](https://github.com/user-attachments/assets/d5827842-d67f-41ef-ae1a-c1d4d63694c8)
 
 
-Isso irá construir as imagens para o serviço `api` e o Nginx.
+Siga os passos indicados pelo aplicativo para criar um novo WebApp. Ao final, você deve ver algo assim:
 
-#### 3. Subir os Contêineres
+![image](https://github.com/user-attachments/assets/5228418e-87de-4466-957d-48b3bad8cc70)
 
-Para iniciar os contêineres em segundo plano, execute:
+
+
+#### 3. Faça um Build do aplicativo
+
+Rode este comando no terminal:
 
 ```bash
-docker-compose up -d
+mvn clean package
 ```
 
-![image](https://github.com/user-attachments/assets/3e392018-c302-4027-85aa-fc6ae0f0d81e)
+Isso irá gerar o arquivo .WAR que iremos utilizar para dar o deploy.
 
 
-Este comando cria e inicia os contêineres, com a API rodando no contêiner `api` e o Nginx no contêiner `nginx`.
 
-#### 4. Verificar se os Contêineres estão Rodando
+#### 4. Faça o deploy do arquivo .WAR na WebApp
 
-Para verificar o status dos contêineres, use:
+Clique com o botão direito sobre o arquivo .WAR gerado dentro da pasta 'target' em seu projeto, e clique em 'Deploy to Web App...'
 
-```bash
-docker-compose ps
-```
-
-![image](https://github.com/user-attachments/assets/a87e2a8c-d197-46fd-ab48-0c8ea53ffc33)
+![image](https://github.com/user-attachments/assets/ef870369-a582-4a5a-bc91-574c164d45b2)
 
 
-#### 5. Testar a Aplicação
 
-Com a IP Pública da máquina virtual (4.201.170.178) e os contêineres em funcionamento, você pode acessar a aplicação através do Nginx na porta `8081`:
+#### 5. Selecione o WebApp que você acabou de criar no passo 2.
 
-- **URL**: `http://4.201.170.178:8081`
+Ao final dos passos e após aguardar o deploy, você deve ver algo assim:
+![image](https://github.com/user-attachments/assets/319b83aa-c074-4be9-a941-7ddc97c7be76)
 
-Isso fará com que as requisições sejam encaminhadas para o contêiner da API na porta `8080`.
 
-#### 6. Parar os Contêineres
 
-Quando terminar, você pode parar os contêineres com o comando:
+#### 6. Testar
 
-```bash
-docker-compose down
-```
+Quando terminar, você pode acessar o Web App através de um navegador e testar o aplicativo.
 
-Isso irá parar e remover todos os contêineres criados.
+![image](https://github.com/user-attachments/assets/d72478ff-1286-4364-a558-bfda1afd11f8)
 
----
-
-## Testes
-
-### Testar a API
-
-Você pode testar a API com ferramentas como **Postman** ou **cURL**.
-
-#### Exemplo de requisição com cURL:
-
-```bash
-curl http://4.201.170.178:8081/cliente
-```
-
-Isso deve retornar a resposta da sua API (verifique o endpoint específico da sua aplicação).
 
 ---
 

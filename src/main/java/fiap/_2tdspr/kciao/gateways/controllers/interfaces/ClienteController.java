@@ -37,4 +37,12 @@ public interface ClienteController {
     @GetMapping("/{id}/eventos")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<List<EventoResponseDto>> getAllEventos(@PathVariable @Valid String id);
+
+    @PostMapping("/{idCliente}/add-doenca/{idDoenca}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<ClienteResponseDto> adicionarDoenca(@PathVariable String idCliente, @PathVariable String idDoenca);
+
+    @PostMapping("/{idCliente}/remove-doenca/{idDoenca}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<ClienteResponseDto> removerDoenca(@PathVariable String idCliente, @PathVariable String idDoenca);
 }
