@@ -5,6 +5,7 @@ import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
 import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import fiap._2tdspr.kciao.usecases.impl.CrudClienteImpl;
+import fiap._2tdspr.kciao.usecases.services.messaging.ProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,11 +17,15 @@ import java.util.List;
 public class ClienteControllerImpl implements ClienteController {
 
     private final CrudClienteImpl crudCliente;
+    private final ProducerService producerService;
+
 
     @Override
     public ResponseEntity<ClienteResponseDto> getCliente(String id) {
 
+
         ClienteResponseDto clienteResponseDto = crudCliente.getOne(id);
+        producerService.sendClienteMessage(clienteResponseDto);
 
         return ResponseEntity.ok(clienteResponseDto);
     }

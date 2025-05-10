@@ -19,6 +19,16 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  listener:
+    simple:
+      prefetch: 1 # Apenas 1 mensagem por vez
+
 jwt:
-  secret: suaChaveSecretaSuperSeguraComPeloMenos512BitsDeTamanho
+  secret: suaChaveSecretaSuperSeguraComPeloMenos256BitsDeTamanho
   expiration: 3600000  # 1 hora em milissegundos
