@@ -8,13 +8,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ClienteResponseDto extends RepresentationModel<ClienteResponseDto> {
+public class ClienteResponseDto extends RepresentationModel<ClienteResponseDto> implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String id_cliente;
     private String nm_cliente;
     private String email;
