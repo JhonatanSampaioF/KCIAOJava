@@ -50,6 +50,7 @@ public class CrudClienteImpl implements CrudCliente {
         ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
                 .id_cliente(clienteSalvo.getId_cliente())
                 .nm_cliente(clienteSalvo.getNm_cliente())
+                .email(clienteASerCriado.getEmail())
                 .nm_doencas(clienteSalvo.getFk_doencas() != null ?
                         clienteSalvo.getFk_doencas().stream()
                                 .map(Doenca::getNm_doenca)
@@ -79,6 +80,7 @@ public class CrudClienteImpl implements CrudCliente {
         return ClienteResponseDto.builder()
                 .id_cliente(cliente.getId_cliente())
                 .nm_cliente(cliente.getNm_cliente())
+                .email(cliente.getEmail())
                 .doencas(doencasIds) // Lista de IDs
                 .nm_doencas(cliente.getFk_doencas().stream()
                         .map(Doenca::getNm_doenca)
@@ -94,6 +96,7 @@ public class CrudClienteImpl implements CrudCliente {
                 .map(cliente -> ClienteResponseDto.builder()
                         .id_cliente(cliente.getId_cliente())
                         .nm_cliente(cliente.getNm_cliente())
+                        .email(cliente.getEmail())
                         .nm_doencas(cliente.getFk_doencas() != null ?
                                 cliente.getFk_doencas().stream()
                                         .map(Doenca::getNm_doenca)
@@ -113,6 +116,7 @@ public class CrudClienteImpl implements CrudCliente {
 
         cliente.setNm_cliente(clienteRequestDto.getNm_cliente());
         cliente.setFk_doencas(doencas);
+        cliente.setEmail(clienteRequestDto.getEmail());
         cliente.setPassword(passwordEncoder.encode(clienteRequestDto.getPassword()));
 
         Cliente updatedClient = clienteRepository.save(cliente);
@@ -120,6 +124,7 @@ public class CrudClienteImpl implements CrudCliente {
         return ClienteResponseDto.builder()
                 .id_cliente(updatedClient.getId_cliente())
                 .nm_cliente(updatedClient.getNm_cliente())
+                .email(updatedClient.getEmail())
                 .nm_doencas(cliente.getFk_doencas() != null ?
                         cliente.getFk_doencas().stream()
                                 .map(Doenca::getNm_doenca)

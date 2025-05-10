@@ -1,6 +1,7 @@
 package fiap._2tdspr.kciao.usecases.services.auth;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +27,13 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    private SecretKey key;
+
+    // Constructor to initialize the key
+    public JwtUtil() {
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);  // Use secure key generation for HS512
+    }
+
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
 
@@ -38,13 +47,13 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(key)  // Use the generated key
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);  // Use the generated key
             return true;
         } catch (ExpiredJwtException ex) {
             logger.error("Token expirado: {}", ex.getMessage());
@@ -61,16 +70,18 @@ public class JwtUtil {
     }
 
     public String getUsernameFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
 
-    public Collection<String> getRolesFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+    public Collection getRolesFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .get("roles", Collection.class);
