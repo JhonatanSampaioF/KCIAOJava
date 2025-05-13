@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @ToString
 @Data
@@ -23,7 +25,9 @@ public class Cliente implements UserDetails {
     private String nm_cliente;
     private String email;
     private String password;
-    private Roles role;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "fk_cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evento> eventos;
@@ -38,17 +42,13 @@ public class Cliente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public String getUsername() {
         return this.email;  // Ou o campo que você usa como username
-    }
-
-    public enum Roles {
-        ADMIN,
-        USER,
-        VIEWER
     }
 }

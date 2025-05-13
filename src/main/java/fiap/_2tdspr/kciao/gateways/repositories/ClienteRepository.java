@@ -5,6 +5,7 @@ import fiap._2tdspr.kciao.domains.Evento;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 public interface ClienteRepository extends JpaRepository<Cliente, String> {
+    @EntityGraph(attributePaths = "roles") // 👈 força carregar roles junto
     Optional<Cliente> findByEmail(String email);
 
 
