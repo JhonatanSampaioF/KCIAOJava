@@ -37,7 +37,7 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/role")
     public ResponseEntity<String> createRole(@RequestParam String role) {
         return ResponseEntity.ok(crudRoles.save(role));
