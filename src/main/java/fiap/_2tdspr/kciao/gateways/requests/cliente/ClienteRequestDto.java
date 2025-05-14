@@ -11,5 +11,6 @@ public class ClienteRequestDto {
     private String nm_cliente;
     private String email;
     private String password;
+    private String role;
     private List<String> doencas;
 }

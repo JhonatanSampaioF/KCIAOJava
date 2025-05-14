@@ -1,5 +1,7 @@
 package fiap._2tdspr.kciao.usecases.services.auth;
 
+import fiap._2tdspr.kciao.domains.Cliente;
+import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class JwtUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+    private final ClienteRepository clienteRepository;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -30,24 +33,29 @@ public class JwtUtil {
     private SecretKey key;
 
     // Constructor to initialize the key
-    public JwtUtil() {
+    public JwtUtil(ClienteRepository clienteRepository) {
         this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);  // Use secure key generation for HS512
+        this.clienteRepository = clienteRepository;
     }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
 
-        claims.put("roles", userDetails.getAuthorities().stream()
+        var authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
+        Cliente cliente = clienteRepository.findByEmail(userDetails.getUsername()).orElseThrow();
+
+        claims.put("form", cliente.getForm());
+        claims.put("roles", authorities);
         claims.put("sub", userDetails.getUsername());
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(key)  // Use the generated key
+                .signWith(key)
                 .compact();
     }
 
@@ -86,4 +94,14 @@ public class JwtUtil {
                 .getBody()
                 .get("roles", Collection.class);
     }
+
+    public Boolean getFormFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("form", Boolean.class);
+    }
+
 }

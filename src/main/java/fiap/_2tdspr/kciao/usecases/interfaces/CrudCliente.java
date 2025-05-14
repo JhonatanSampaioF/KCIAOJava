@@ -18,4 +18,6 @@ public interface CrudCliente {
     List<EventoResponseDto> getAllEventos(String id);
     ClienteResponseDto addDoenca(String idCliente, String idDoenca);
     ClienteResponseDto removeDoenca(String idCliente, String idDoenca);
+
+    String fillForm(String idCliente);
 }

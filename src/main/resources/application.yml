@@ -27,8 +27,15 @@ spring:
     virtual-host: /
   listener:
     simple:
-      prefetch: 1 # Apenas 1 mensagem por vez
+      prefetch: 1
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health, info, metrics
+      health:
+        show-details: always
 
 jwt:
   secret: suaChaveSecretaSuperSeguraComPeloMenos256BitsDeTamanho
-  expiration: 3600000  # 1 hora em milissegundos
+  expiration: 3600000
