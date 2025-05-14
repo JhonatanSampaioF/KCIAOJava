@@ -1,7 +1,9 @@
 package fiap._2tdspr.kciao.gateways.controllers.impl;
 
+import fiap._2tdspr.kciao.domains.Cliente;
 import fiap._2tdspr.kciao.gateways.requests.LoginRequest;
 import fiap._2tdspr.kciao.usecases.interfaces.CrudRoles;
+import fiap._2tdspr.kciao.usecases.services.auth.JwtFilter;
 import fiap._2tdspr.kciao.usecases.services.auth.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
     private final CrudRoles crudRoles;
+    private final JwtFilter jwtFilter;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
@@ -41,5 +44,11 @@ public class AuthController {
     @PostMapping("/role")
     public ResponseEntity<String> createRole(@RequestParam String role) {
         return ResponseEntity.ok(crudRoles.save(role));
+    }
+
+    @PostMapping("/form")
+    public ResponseEntity<Boolean> extract(Authentication authentication) {
+        Cliente cliente = (Cliente) authentication.getPrincipal();
+        return ResponseEntity.ok(cliente.getForm());
     }
 }

@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
 //                        .anyRequest().permitAll()
                         .anyRequest().authenticated()
                 )
@@ -41,7 +41,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Adicione este método para expor o AuthenticationManager como bean
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();

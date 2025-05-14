@@ -25,6 +25,8 @@ public class Cliente implements UserDetails {
     private String nm_cliente;
     private String email;
     private String password;
+    @Builder.Default
+    private Boolean form = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;

@@ -45,11 +45,9 @@ public class JwtUtil {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        System.out.println("Authorities do usuário: " + authorities); // 👈 debug
-        Cliente cliente = clienteRepository.findByEmail("josias@email.com").get();
-        System.out.println(cliente.getRoles()); // deve conter ROLE_ADMIN
+        Cliente cliente = clienteRepository.findByEmail(userDetails.getUsername()).orElseThrow();
 
-
+        claims.put("form", cliente.getForm());
         claims.put("roles", authorities);
         claims.put("sub", userDetails.getUsername());
 
@@ -96,4 +94,14 @@ public class JwtUtil {
                 .getBody()
                 .get("roles", Collection.class);
     }
+
+    public Boolean getFormFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("form", Boolean.class);
+    }
+
 }
