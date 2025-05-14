@@ -211,4 +211,15 @@ public class CrudClienteImpl implements CrudCliente {
                         .toList())
                 .build();
     }
+
+    @Override
+    public String fillForm(String idCliente) {
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente not found"));
+
+        cliente.setForm(true);
+
+        clienteRepository.save(cliente);
+        return "Client form updated successfully";
+    }
 }

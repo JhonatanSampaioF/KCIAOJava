@@ -46,9 +46,5 @@ public class AuthController {
         return ResponseEntity.ok(crudRoles.save(role));
     }
 
-    @PostMapping("/form")
-    public ResponseEntity<Boolean> extract(Authentication authentication) {
-        Cliente cliente = (Cliente) authentication.getPrincipal();
-        return ResponseEntity.ok(cliente.getForm());
-    }
+
 }
