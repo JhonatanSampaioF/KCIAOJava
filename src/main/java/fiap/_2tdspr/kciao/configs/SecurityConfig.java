@@ -33,9 +33,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
-//                        .anyRequest().permitAll()
-                        //auth
-                        .anyRequest().authenticated()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
