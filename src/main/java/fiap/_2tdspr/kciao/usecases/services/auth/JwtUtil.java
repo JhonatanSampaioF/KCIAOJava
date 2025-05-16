@@ -32,9 +32,8 @@ public class JwtUtil {
 
     private SecretKey key;
 
-    // Constructor to initialize the key
     public JwtUtil(ClienteRepository clienteRepository) {
-        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);  // Use secure key generation for HS512
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
         this.clienteRepository = clienteRepository;
     }
 
@@ -47,6 +46,9 @@ public class JwtUtil {
 
         Cliente cliente = clienteRepository.findByEmail(userDetails.getUsername()).orElseThrow();
 
+        claims.put("id_cliente", cliente.getId_cliente());
+        claims.put("nome", cliente.getNm_cliente());
+        claims.put("email", cliente.getEmail());
         claims.put("form", cliente.getForm());
         claims.put("roles", authorities);
         claims.put("sub", userDetails.getUsername());
@@ -61,7 +63,7 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);  // Use the generated key
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException ex) {
             logger.error("Token expirado: {}", ex.getMessage());
@@ -103,5 +105,30 @@ public class JwtUtil {
                 .getBody()
                 .get("form", Boolean.class);
     }
+
+    public Map<String, Object> getBasicUserInfo(String header) {
+
+        String token = extractToken(header);
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("id_cliente", claims.get("id_cliente"));
+        userInfo.put("nome", claims.get("nome"));
+        userInfo.put("email", claims.get("email"));
+
+        return userInfo;
+    }
+
+    public String extractToken(String header) {
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        throw new IllegalArgumentException("Token JWT ausente ou malformado");
+    }
+
 
 }
