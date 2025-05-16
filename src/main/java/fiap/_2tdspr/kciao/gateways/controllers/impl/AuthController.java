@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -46,5 +48,11 @@ public class AuthController {
         return ResponseEntity.ok(crudRoles.save(role));
     }
 
+    @GetMapping("/info")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Map<String, Object>> getUserInfoFromToken(
+            @RequestHeader("Authorization") String authorizationHeader) {
 
+        return ResponseEntity.ok(jwtUtil.getBasicUserInfo(authorizationHeader));
+    }
 }
