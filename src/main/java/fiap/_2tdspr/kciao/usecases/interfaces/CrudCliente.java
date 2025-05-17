@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public interface CrudCliente {
     ClienteResponseDto save(ClienteRequestDto clienteRequestDto);
     ClienteResponseDto getOne(String id);
