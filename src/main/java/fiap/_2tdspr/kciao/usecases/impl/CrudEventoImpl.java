@@ -26,7 +26,7 @@ public class CrudEventoImpl implements CrudEvento {
                 .tipo_evento(eventoRequestPostDto.getTipo_evento())
                 .desc_evento(eventoRequestPostDto.getDesc_evento())
                 .dt_evento(eventoRequestPostDto.getDt_evento())
-                .fk_cliente(eventoRequestPostDto.getFk_cliente())
+                .cliente(eventoRequestPostDto.getFk_cliente())
                 .build();
 
         Evento eventoSalvo = eventoRepository.save(eventoASerCriado);
@@ -36,7 +36,7 @@ public class CrudEventoImpl implements CrudEvento {
                 .tipo_evento(eventoSalvo.getTipo_evento())
                 .desc_evento(eventoSalvo.getDesc_evento())
                 .dt_evento(eventoSalvo.getDt_evento())
-                .fk_cliente(eventoSalvo.getFk_cliente())
+                .fk_cliente(eventoSalvo.getCliente())
                 .build();
 
         eventoResponse.add(
@@ -58,7 +58,7 @@ public class CrudEventoImpl implements CrudEvento {
                 .tipo_evento(evento.getTipo_evento())
                 .desc_evento(evento.getDesc_evento())
                 .dt_evento(evento.getDt_evento())
-                .fk_cliente(evento.getFk_cliente())
+                .fk_cliente(evento.getCliente())
                 .build();
     }
 
@@ -71,7 +71,7 @@ public class CrudEventoImpl implements CrudEvento {
                         .tipo_evento(evento.getTipo_evento())
                         .desc_evento(evento.getDesc_evento())
                         .dt_evento(evento.getDt_evento())
-                        .fk_cliente(evento.getFk_cliente())
+                        .fk_cliente(evento.getCliente())
                         .build()).toList();
     }
 

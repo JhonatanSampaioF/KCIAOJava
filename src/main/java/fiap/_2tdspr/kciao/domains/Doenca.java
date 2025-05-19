@@ -2,6 +2,9 @@ package fiap._2tdspr.kciao.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "doenca")
 public class Doenca {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

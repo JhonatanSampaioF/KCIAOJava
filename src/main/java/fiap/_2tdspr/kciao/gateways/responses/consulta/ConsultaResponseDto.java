@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import fiap._2tdspr.kciao.domains.Evento;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.RepresentationModel;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)

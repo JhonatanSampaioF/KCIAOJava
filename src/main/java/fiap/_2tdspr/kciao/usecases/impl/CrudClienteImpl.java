@@ -7,6 +7,7 @@ import fiap._2tdspr.kciao.domains.Role;
 import fiap._2tdspr.kciao.gateways.controllers.interfaces.ClienteController;
 import fiap._2tdspr.kciao.gateways.repositories.ClienteRepository;
 import fiap._2tdspr.kciao.gateways.repositories.DoencaRepository;
+import fiap._2tdspr.kciao.gateways.repositories.EventoRepository;
 import fiap._2tdspr.kciao.gateways.repositories.RoleRepository;
 import fiap._2tdspr.kciao.gateways.requests.cliente.ClienteRequestDto;
 import fiap._2tdspr.kciao.gateways.responses.cliente.ClienteResponseDto;
@@ -32,6 +33,7 @@ public class CrudClienteImpl implements CrudCliente {
     private final DoencaRepository doencaRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final EventoRepository eventoRepository;
 
     @Override
     public ClienteResponseDto save(ClienteRequestDto clienteRequestDto) {
@@ -58,7 +60,7 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente clienteSalvo = clienteRepository.save(clienteASerCriado);
 
         ClienteResponseDto clienteResponse = ClienteResponseDto.builder()
-                .id_cliente(clienteSalvo.getId_cliente())
+                .id_cliente(clienteSalvo.getId())
                 .nm_cliente(clienteSalvo.getNm_cliente())
                 .email(clienteASerCriado.getEmail())
                 .nm_doencas(clienteSalvo.getFk_doencas() != null ?
@@ -71,7 +73,7 @@ public class CrudClienteImpl implements CrudCliente {
         clienteResponse.add(
                 linkTo(
                         methodOn(ClienteController.class)
-                                .getCliente(clienteSalvo.getId_cliente().toString())
+                                .getCliente(clienteSalvo.getId().toString())
                 ).withSelfRel()
         );
 
@@ -88,7 +90,7 @@ public class CrudClienteImpl implements CrudCliente {
                 .collect(Collectors.toList());
 
         return ClienteResponseDto.builder()
-                .id_cliente(cliente.getId_cliente())
+                .id_cliente(cliente.getId())
                 .nm_cliente(cliente.getNm_cliente())
                 .email(cliente.getEmail())
                 .doencas(doencasIds) // Lista de IDs
@@ -101,10 +103,9 @@ public class CrudClienteImpl implements CrudCliente {
     @Override
     public List<ClienteResponseDto> getAll() {
         List<Cliente> listCliente = clienteRepository.findAll();
-        clienteRepository.relatorioEventosConsultasCliente();
         return listCliente.stream()
                 .map(cliente -> ClienteResponseDto.builder()
-                        .id_cliente(cliente.getId_cliente())
+                        .id_cliente(cliente.getId())
                         .nm_cliente(cliente.getNm_cliente())
                         .email(cliente.getEmail())
                         .nm_doencas(cliente.getFk_doencas() != null ?
@@ -132,7 +133,7 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente updatedClient = clienteRepository.save(cliente);
 
         return ClienteResponseDto.builder()
-                .id_cliente(updatedClient.getId_cliente())
+                .id_cliente(updatedClient.getId())
                 .nm_cliente(updatedClient.getNm_cliente())
                 .email(updatedClient.getEmail())
                 .nm_doencas(cliente.getFk_doencas() != null ?
@@ -150,7 +151,7 @@ public class CrudClienteImpl implements CrudCliente {
 
     @Override
     public List<EventoResponseDto> getAllEventos(String id) {
-        List<Evento> listEvento = clienteRepository.findAllEventobyId(id);
+        List<Evento> listEvento = eventoRepository.findAllByCliente_Id(id);
         return listEvento.stream()
                 .map(evento -> EventoResponseDto.builder()
                         .id_evento(evento.getId_evento())
@@ -177,7 +178,7 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente savedCliente = clienteRepository.save(cliente);
 
         return ClienteResponseDto.builder()
-                .id_cliente(savedCliente.getId_cliente())
+                .id_cliente(savedCliente.getId())
                 .nm_cliente(savedCliente.getNm_cliente())
                 .doencas(savedCliente.getFk_doencas()
                         .stream()
@@ -203,7 +204,7 @@ public class CrudClienteImpl implements CrudCliente {
         Cliente savedCliente = clienteRepository.save(cliente);
 
         return ClienteResponseDto.builder()
-                .id_cliente(savedCliente.getId_cliente())
+                .id_cliente(savedCliente.getId())
                 .nm_cliente(savedCliente.getNm_cliente())
                 .doencas(savedCliente.getFk_doencas()
                         .stream()

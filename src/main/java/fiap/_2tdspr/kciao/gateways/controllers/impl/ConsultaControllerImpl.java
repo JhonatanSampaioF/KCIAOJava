@@ -8,12 +8,14 @@ import fiap._2tdspr.kciao.gateways.responses.consulta.ConsultaResponseDto;
 import fiap._2tdspr.kciao.usecases.impl.CrudConsultaImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/consulta")
 public class ConsultaControllerImpl implements ConsultaController {
 
     private final CrudConsultaImpl crudConsulta;

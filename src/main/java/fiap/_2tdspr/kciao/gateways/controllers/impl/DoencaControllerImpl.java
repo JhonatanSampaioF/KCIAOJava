@@ -6,12 +6,14 @@ import fiap._2tdspr.kciao.gateways.responses.doenca.DoencaResponseDto;
 import fiap._2tdspr.kciao.usecases.impl.CrudDoencaImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/doenca")
 public class DoencaControllerImpl implements DoencaController {
 
     private final CrudDoencaImpl crudDoenca;

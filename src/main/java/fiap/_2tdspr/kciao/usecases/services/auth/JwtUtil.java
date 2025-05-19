@@ -46,7 +46,7 @@ public class JwtUtil {
 
         Cliente cliente = clienteRepository.findByEmail(userDetails.getUsername()).orElseThrow();
 
-        claims.put("id_cliente", cliente.getId_cliente());
+        claims.put("id_cliente", cliente.getId());
         claims.put("nome", cliente.getNm_cliente());
         claims.put("email", cliente.getEmail());
         claims.put("form", cliente.getForm());

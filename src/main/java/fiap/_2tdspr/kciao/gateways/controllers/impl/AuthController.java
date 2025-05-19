@@ -42,14 +42,14 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/role")
     public ResponseEntity<String> createRole(@RequestParam String role) {
         return ResponseEntity.ok(crudRoles.save(role));
     }
 
     @GetMapping("/info")
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Map<String, Object>> getUserInfoFromToken(
             @RequestHeader("Authorization") String authorizationHeader) {
 

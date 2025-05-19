@@ -2,12 +2,13 @@ package fiap._2tdspr.kciao.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,11 +18,11 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "cliente")
 public class Cliente implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id_cliente;
+    private String id;
     private String nm_cliente;
     private String email;
     private String password;

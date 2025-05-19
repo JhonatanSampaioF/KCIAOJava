@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/cliente")
 public interface ClienteController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

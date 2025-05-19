@@ -7,12 +7,14 @@ import fiap._2tdspr.kciao.gateways.responses.evento.EventoResponseDto;
 import fiap._2tdspr.kciao.usecases.impl.CrudEventoImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/evento")
 public class EventoControllerImpl implements EventoController {
 
     private final CrudEventoImpl crudEvento;

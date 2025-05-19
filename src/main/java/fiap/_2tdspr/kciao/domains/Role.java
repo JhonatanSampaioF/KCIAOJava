@@ -1,19 +1,18 @@
 package fiap._2tdspr.kciao.domains;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "role")
 public class Role {
     @Id
     private String name;

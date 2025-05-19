@@ -2,6 +2,9 @@ package fiap._2tdspr.kciao.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.sql.Date;
@@ -10,7 +13,7 @@ import java.sql.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "evento")
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,5 +23,5 @@ public class Evento {
     private Date dt_evento;
     @ManyToOne
     @JoinColumn(name = "fk_cliente_id", nullable = false)
-    private Cliente fk_cliente;
+    private Cliente cliente;
 }

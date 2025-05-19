@@ -14,7 +14,7 @@ public class OdontoChatService {
     private final ListarDoencasTool listarDoencasTool;
 
     public String getRecomendacoes(String clienteId) {
-        ChatClient chatClient = ChatClient.create(chatModel); // Crie o ChatClient
+        ChatClient chatClient = ChatClient.create(chatModel);
 
         return chatClient.prompt()
                 .system("Você é um assistente odontológico especialista em cuidados bucais. "

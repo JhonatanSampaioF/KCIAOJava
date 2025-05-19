@@ -2,13 +2,15 @@ package fiap._2tdspr.kciao.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document(collection = "consulta")
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

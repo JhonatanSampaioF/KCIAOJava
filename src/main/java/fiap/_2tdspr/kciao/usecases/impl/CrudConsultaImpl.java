@@ -66,7 +66,7 @@ public class CrudConsultaImpl implements CrudConsulta {
                 .tipo_evento("Consulta")
                 .desc_evento(consultaWithEventoPostDto.getDesc_evento())
                 .dt_evento(consultaWithEventoPostDto.getDt_evento())
-                .fk_cliente(cliente)
+                .cliente(cliente)
                 .build();
 
         Evento eventoSalvo = eventoRepository.save(evento);
