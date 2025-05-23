@@ -230,7 +230,7 @@ Certifique-se de que o **Maven** esteja instalado em sua máquina, e que a exten
 Primeiro, clone este repositório para a sua máquina:
 
 ```bash
-git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/JhonatanSampaioF/KCIAOJava.git)
+git clone https://github.com/JhonatanSampaioF/KCIAOJava.git
 cd KCIAOJava
 ```
 
