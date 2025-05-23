@@ -313,3 +313,82 @@ KCIAOJava/</br>
 ### Design Patterns
 1. **Repository Pattern**: Utilizado para isolar a lógica de acesso ao banco de dados.
 2. **Dependency Injection**: Utilizado para desacoplar componentes e facilitar testes.
+
+
+## ✅ Configuração da Pipeline (CI/CD) no Azure DevOps
+### 📌 Visão Geral
+A aplicação foi integrada com uma pipeline no Azure DevOps, garantindo a automação das etapas de build, testes e deploy no Azure Web App.
+
+### 🚀 Etapas da Pipeline
+1. Integração Contínua (CI)
+
+- Disparo: a cada push na branch main.
+- Ações:
+    - Instalação das dependências do projeto.
+    - Execução de testes automatizados.
+    - Build do artefato .war via Maven.
+    - Publicação do artefato no Azure DevOps.
+
+2. Entrega Contínua (CD)
+
+- Disparo: após sucesso na CI.
+- Ações:
+    - Download automático do artefato.
+    - Deploy automatizado do .war no Azure App Service.
+    - Aplicação disponível para testes e uso.
+
+### 🛠️ Arquivo azure-pipelines.yml
+```yaml
+Copiar
+Editar
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      mavenVersionOption: 'Default'
+    displayName: 'Build with Maven'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'target/*.war'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: 'Publish WAR artifact'
+  
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: '<Nome-da-Sua-Service-Connection>'
+      appType: 'webApp'
+      appName: '<Nome-do-seu-WebApp>'
+      package: '$(Pipeline.Workspace)/drop/*.war'
+    displayName: 'Deploy to Azure Web App'`
+```
+
+### 📝 Como Executar a Pipeline
+1. Commit e push de alterações para a branch main.
+2. Azure DevOps inicia automaticamente a pipeline:
+- Build → mvn clean package
+- Teste → conforme configurado
+- Deploy → automático para o Azure Web App
+3. A aplicação é disponibilizada na URL pública do Web App.
+
+### ✅ Resultado
+- Aplicação disponível e persistente na nuvem.
+- Processo de CI/CD implementado com boas práticas e reprodutível.
+
+### 🎯 Tecnologias utilizadas na Pipeline
+- Azure DevOps: gerenciamento da pipeline.
+- Maven: build e empacotamento da aplicação.
+- Java 11: versão utilizada na pipeline.
+- Azure Web App: ambiente de deploy.
+- Oracle Cloud: persistência dos dados.
+
