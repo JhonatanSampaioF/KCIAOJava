@@ -82,6 +82,8 @@ Para remover um registro de qualquer tabela, utilize o método DELETE com a url 
 ## Apresentação da Aplicação
 ### [Apresentacao aplicacao](https://youtu.be/gWtCW0d_5qQ)
 
+## Vídeo Apresentação (Sprint 4)
+### [Apresentação final Sprint 4](https://www.youtube.com/watch?v=zd22tz-3sYU)
 ---
 
 ## Lista de endpoints
